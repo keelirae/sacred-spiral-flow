@@ -52,6 +52,16 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Sacred Spiral cycle colors
+				menstrual: 'hsl(var(--menstrual))',
+				follicular: 'hsl(var(--follicular))',
+				ovulatory: 'hsl(var(--ovulatory))',
+				luteal: 'hsl(var(--luteal))',
+				// Nature-inspired colors
+				'nature-green': 'hsl(var(--nature-green))',
+				'earth-brown': 'hsl(var(--earth-brown))',
+				'moon-silver': 'hsl(var(--moon-silver))',
+				'sunset-rose': 'hsl(var(--sunset-rose))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
