@@ -11,6 +11,7 @@ import MentalRealm from "./pages/public/MentalRealm";
 import SpiritualRealm from "./pages/public/SpiritualRealm";
 import Journey from "./pages/public/Journey";
 import Contact from "./pages/public/Contact";
+import Auth from "./pages/public/Auth";
 import Initiates from "./pages/public/Initiates";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,8 @@ const App = () => (
             <Route path="/spiritual-realm" element={<SpiritualRealm />} />
             <Route path="/journey" element={<Journey />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/login" element={<Auth />} />
             <Route path="/initiates" element={<Initiates />} />
 
             {/* Existing auth-gated app lives at /app */}

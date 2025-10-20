@@ -11,16 +11,21 @@ import Moon from '@/components/icons/Moon';
 import Spiral from '@/components/icons/Spiral';
 import ContactForm from '@/components/public/ContactForm';
 import Button from '@/components/public/Button';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function Home() {
+  const realmsReveal = useScrollReveal<HTMLDivElement>();
+  const journeyReveal = useScrollReveal<HTMLDivElement>();
+  const aboutReveal = useScrollReveal<HTMLDivElement>();
+  const contactReveal = useScrollReveal<HTMLDivElement>();
   return (
     <div>
       <Seo
         title="The Sacred Spiral — Feminine, Earth-Rooted Transformation"
         description="A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony."
       />
-      <Header />
-      <main>
+  <Header />
+  <main id="main">
         <PageHero
           title="The Sacred Spiral"
           subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms."
@@ -28,10 +33,10 @@ export default function Home() {
           ctaLabel="Enter the Spiral"
         />
         <Section id="realms" background="ivory" title="The Three Realms">
-          <p className="max-w-2xl text-muted-foreground">
+          <p ref={realmsReveal.ref} className={`max-w-2xl text-muted-foreground transition-all duration-700 ${realmsReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
             The Spiral is a cyclical path of remembering. Move with your body’s wisdom, clarify the mind, and root into spirit.
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-700 ${realmsReveal.visible ? 'opacity-100' : 'opacity-0'}`}>
             <RealmCard
               title="Physical Realm"
               description="Body intelligence through functional movement, whole-food nutrition, and cycle syncing."
@@ -57,7 +62,7 @@ export default function Home() {
         </Section>
         <SpiralDivider />
         <Section id="journey" title="Journey Through the Spiral">
-          <div className="grid md:grid-cols-2 gap-6 items-center">
+          <div ref={journeyReveal.ref} className={`grid md:grid-cols-2 gap-6 items-center transition-all duration-700 ${journeyReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
             <div className="space-y-4">
               <p>
                 A year-long path through three realms: 3 months in each, with a month of integration between levels.
@@ -69,7 +74,7 @@ export default function Home() {
           </div>
         </Section>
         <Section id="about" background="sand" title="About the Work">
-          <div className="grid md:grid-cols-3 gap-6 items-start">
+          <div ref={aboutReveal.ref} className={`grid md:grid-cols-3 gap-6 items-start transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
             <div className="md:col-span-2 space-y-4">
               <p>
                 This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. We move slowly
@@ -83,7 +88,7 @@ export default function Home() {
           </div>
         </Section>
         <Section id="contact" title="Connect with Me">
-          <p className="max-w-2xl text-muted-foreground mb-6">
+          <p ref={contactReveal.ref} className={`max-w-2xl text-muted-foreground mb-6 transition-all duration-700 ${contactReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
             Have a question or feel called to walk the spiral? I’d love to hear from you.
           </p>
           <ContactForm />

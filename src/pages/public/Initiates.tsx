@@ -16,7 +16,8 @@ export default function Initiates() {
             <p className="text-muted-foreground">Private portal for current students — coming soon.</p>
             <div className="flex gap-4">
               <Button as="a" href="/">Back to Home</Button>
-              <Button as="a" href="/contact" variant="secondary">Contact Me</Button>
+              <Button as="a" href="/auth" variant="secondary">Sign In</Button>
+              <Button as="a" href="/contact" variant="ghost">Contact Me</Button>
             </div>
           </div>
         </Section>

@@ -18,6 +18,7 @@ export default {
 			}
 		},
 		extend: {
+			// Typography & fonts already set
 			fontFamily: {
 				sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Noto Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Arial", "sans-serif"],
 				serif: ["Fraunces", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
@@ -112,11 +113,22 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				fadeIn: {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
+				},
+				slideUp: {
+					'0%': { transform: 'translateY(16px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
+				'slide-up': 'slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
+				'slow-spin': 'spin 20s linear infinite'
 			}
 		}
 	},

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
@@ -10,20 +10,34 @@ const links = [
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
   { href: '/initiates', label: 'For Initiates' },
+  { href: '/auth', label: 'Sign In' },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [elevated, setElevated] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setElevated(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <header className={`sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b ${elevated ? 'shadow-sm' : ''}`}>
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 bg-background border px-3 py-2 rounded-md">Skip to main content</a>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2">
-          <span className="inline-block h-6 w-6 rounded-full bg-gradient-to-br from-primary to-accent" aria-hidden="true" />
+          <span className="inline-block h-6 w-6 rounded-full bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary)),hsl(var(--accent)))] shadow-sm" aria-hidden="true" />
           <span className="font-semibold tracking-wide">The Sacred Spiral</span>
         </a>
         <nav aria-label="Primary" className="hidden md:flex items-center gap-6">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm hover:text-primary transition-colors">
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-sm hover:text-primary transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full focus:after:w-full"
+            >
               {l.label}
             </a>
           ))}
@@ -35,10 +49,15 @@ export default function Header() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-80">
+            <SheetContent side="left" className="w-80" aria-label="Mobile menu">
               <nav className="mt-8 grid gap-4">
                 {links.map((l) => (
-                  <a key={l.href} href={l.href} className="text-base" onClick={() => setOpen(false)}>
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    onClick={() => setOpen(false)}
+                  >
                     {l.label}
                   </a>
                 ))}

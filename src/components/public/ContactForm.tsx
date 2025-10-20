@@ -31,17 +31,17 @@ export default function ContactForm() {
       <div className="grid gap-2">
         <Label htmlFor="name">Name</Label>
         <Input id="name" name="name" aria-invalid={!!errors.name} />
-        {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
+  {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" type="email" aria-invalid={!!errors.email} />
-        {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
+  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="message">Message</Label>
         <Textarea id="message" name="message" rows={5} aria-invalid={!!errors.message} />
-        {errors.message && <p className="text-sm text-red-600">{errors.message}</p>}
+  {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
       </div>
       <Button>Send Message</Button>
     </form>

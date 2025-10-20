@@ -73,16 +73,16 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-secondary/10 flex items-center justify-center p-4">
+    <div className="min-h-[calc(100vh-8rem)] bg-[image:var(--gradient-nature)] flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Logo and Welcome */}
         <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-2">
-            <Heart className="h-8 w-8 text-primary" />
-            <Leaf className="h-8 w-8 text-accent" />
+            <Heart className="h-8 w-8 text-sage-600" />
+            <Leaf className="h-8 w-8 text-clay-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-serif tracking-tight text-ink-900">
               Sacred Spiral
             </h1>
             <p className="text-muted-foreground mt-2">
@@ -92,16 +92,16 @@ const AuthPage = () => {
         </div>
 
         {/* Auth Forms */}
-        <Card>
+        <Card className="shadow-sm border border-border/80 bg-card/95 backdrop-blur">
           <CardHeader>
-            <CardTitle>Welcome</CardTitle>
+            <CardTitle className="font-serif text-2xl">Welcome</CardTitle>
             <CardDescription>
               Sign in to your account or create a new one to get started.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-2 bg-muted">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
@@ -204,7 +204,7 @@ const AuthPage = () => {
         </Card>
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>Physical Realm • Nutrition • Cycle Syncing</p>
+          <p>Physical • Mental • Spiritual</p>
         </div>
       </div>
     </div>
