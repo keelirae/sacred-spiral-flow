@@ -5,6 +5,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
+import Home from "./pages/public/Home";
+import PhysicalRealm from "./pages/public/PhysicalRealm";
+import MentalRealm from "./pages/public/MentalRealm";
+import SpiritualRealm from "./pages/public/SpiritualRealm";
+import Journey from "./pages/public/Journey";
+import Contact from "./pages/public/Contact";
+import Initiates from "./pages/public/Initiates";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -17,7 +24,17 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            {/* Public site */}
+            <Route path="/" element={<Home />} />
+            <Route path="/physical-realm" element={<PhysicalRealm />} />
+            <Route path="/mental-realm" element={<MentalRealm />} />
+            <Route path="/spiritual-realm" element={<SpiritualRealm />} />
+            <Route path="/journey" element={<Journey />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/initiates" element={<Initiates />} />
+
+            {/* Existing auth-gated app lives at /app */}
+            <Route path="/app" element={<Index />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -62,6 +62,20 @@ export default {
 				'earth-brown': 'hsl(var(--earth-brown))',
 				'moon-silver': 'hsl(var(--moon-silver))',
 				'sunset-rose': 'hsl(var(--sunset-rose))',
+				// Phase 1 token additions
+				sage: {
+					600: 'hsl(var(--sage-600))',
+					300: 'hsl(var(--sage-300, var(--sage-600)))'
+				},
+				clay: {
+					600: 'hsl(var(--clay-600))',
+					300: 'hsl(var(--clay-300, var(--clay-600)))'
+				},
+				sand: {
+					200: 'hsl(var(--sand-200))'
+				},
+				ivory: 'hsl(var(--ivory))',
+				'ink-900': 'hsl(var(--ink-900))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
