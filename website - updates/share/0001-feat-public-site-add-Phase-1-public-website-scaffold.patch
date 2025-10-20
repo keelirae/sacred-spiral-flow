@@ -1,0 +1,2229 @@
+From 6008745248d6e1c8e0cf88375a877d481b047079 Mon Sep 17 00:00:00 2001
+From: SacredRebel <paulmuresan77@gmail.com>
+Date: Mon, 20 Oct 2025 13:52:22 -0700
+Subject: [PATCH] feat(public-site): add Phase 1 public website scaffolding
+
+- Save guiding doc under `website - updates/phase-1-public-website-plan.md`
+- Extend Tailwind/CSS variables with sacred palette (sage, clay, sand, ivory, ink)
+- Add public shared components (Header, Footer, PageHero, Section, RealmCard, SpiralDivider, ContactForm)
+- Add basic icons (Leaf, Moon, Spiral)
+- Add SEO helper (src/lib/seo.ts)
+- Implement public pages: Home, Physical, Mental, Spiritual, Journey, Contact, Initiates
+- Wire routes in App.tsx (public at /; existing app at /app)
+- Add image placeholders under public/images/placeholders
+- Enable smooth scrolling
+
+Note: Vite dev server runs via `node node_modules/vite/bin/vite.js` due to `&` in path on Windows.
+---
+ package-lock.json                             | 118 +-----
+ public/images/placeholders/hero.jpg           |   1 +
+ public/images/placeholders/journey.jpg        |   1 +
+ public/images/placeholders/realm-mental.jpg   |   1 +
+ public/images/placeholders/realm-physical.jpg |   1 +
+ .../images/placeholders/realm-spiritual.jpg   |   1 +
+ src/App.tsx                                   |  19 +-
+ src/components/icons/Leaf.tsx                 |   9 +
+ src/components/icons/Moon.tsx                 |   9 +
+ src/components/icons/Spiral.tsx               |  16 +
+ src/components/public/Button.tsx              |  36 ++
+ src/components/public/ContactForm.tsx         |  49 +++
+ src/components/public/Footer.tsx              |  24 ++
+ src/components/public/Header.tsx              |  52 +++
+ src/components/public/PageHero.tsx            |  25 ++
+ src/components/public/RealmCard.tsx           |  28 ++
+ src/components/public/Section.tsx             |  26 ++
+ src/components/public/SpiralDivider.tsx       |  11 +
+ src/index.css                                 |  14 +
+ src/lib/seo.ts                                |  12 +
+ src/pages/public/Contact.tsx                  |  27 ++
+ src/pages/public/Home.tsx                     |  90 ++++
+ src/pages/public/Initiates.tsx                |  25 ++
+ src/pages/public/Journey.tsx                  |  41 ++
+ src/pages/public/MentalRealm.tsx              |  28 ++
+ src/pages/public/PhysicalRealm.tsx            |  52 +++
+ src/pages/public/SpiritualRealm.tsx           |  28 ++
+ tailwind.config.ts                            |  14 +
+ .../phase-1-public-website-plan.md            | 396 ++++++++++++++++++
+ 29 files changed, 1038 insertions(+), 116 deletions(-)
+ create mode 100644 public/images/placeholders/hero.jpg
+ create mode 100644 public/images/placeholders/journey.jpg
+ create mode 100644 public/images/placeholders/realm-mental.jpg
+ create mode 100644 public/images/placeholders/realm-physical.jpg
+ create mode 100644 public/images/placeholders/realm-spiritual.jpg
+ create mode 100644 src/components/icons/Leaf.tsx
+ create mode 100644 src/components/icons/Moon.tsx
+ create mode 100644 src/components/icons/Spiral.tsx
+ create mode 100644 src/components/public/Button.tsx
+ create mode 100644 src/components/public/ContactForm.tsx
+ create mode 100644 src/components/public/Footer.tsx
+ create mode 100644 src/components/public/Header.tsx
+ create mode 100644 src/components/public/PageHero.tsx
+ create mode 100644 src/components/public/RealmCard.tsx
+ create mode 100644 src/components/public/Section.tsx
+ create mode 100644 src/components/public/SpiralDivider.tsx
+ create mode 100644 src/lib/seo.ts
+ create mode 100644 src/pages/public/Contact.tsx
+ create mode 100644 src/pages/public/Home.tsx
+ create mode 100644 src/pages/public/Initiates.tsx
+ create mode 100644 src/pages/public/Journey.tsx
+ create mode 100644 src/pages/public/MentalRealm.tsx
+ create mode 100644 src/pages/public/PhysicalRealm.tsx
+ create mode 100644 src/pages/public/SpiritualRealm.tsx
+ create mode 100644 website - updates/phase-1-public-website-plan.md
+
+diff --git a/package-lock.json b/package-lock.json
+index 80bba15..334a654 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -83,7 +83,6 @@
+       "version": "5.2.0",
+       "resolved": "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz",
+       "integrity": "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=10"
+@@ -847,7 +846,6 @@
+       "version": "8.0.2",
+       "resolved": "https://registry.npmjs.org/@isaacs/cliui/-/cliui-8.0.2.tgz",
+       "integrity": "sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "string-width": "^5.1.2",
+@@ -865,7 +863,6 @@
+       "version": "0.3.5",
+       "resolved": "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.5.tgz",
+       "integrity": "sha512-IzL8ZoEDIBRWEzlCcRhOaCupYyN5gdIK+Q6fbFdPDg6HqX6jpkItn7DFIpW9LQzXG6Df9sA7+OKnq0qlz/GaQg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@jridgewell/set-array": "^1.2.1",
+@@ -880,7 +877,6 @@
+       "version": "3.1.2",
+       "resolved": "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz",
+       "integrity": "sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=6.0.0"
+@@ -890,7 +886,6 @@
+       "version": "1.2.1",
+       "resolved": "https://registry.npmjs.org/@jridgewell/set-array/-/set-array-1.2.1.tgz",
+       "integrity": "sha512-R8gLRTZeyp03ymzP/6Lil/28tGeGEzhx1q2k703KGWRAI1VdvPIXdG70VJc2pAMw3NA6JKL5hhFu1sJX0Mnn/A==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=6.0.0"
+@@ -900,14 +895,12 @@
+       "version": "1.5.0",
+       "resolved": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.0.tgz",
+       "integrity": "sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/@jridgewell/trace-mapping": {
+       "version": "0.3.25",
+       "resolved": "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.25.tgz",
+       "integrity": "sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@jridgewell/resolve-uri": "^3.1.0",
+@@ -918,7 +911,6 @@
+       "version": "2.1.5",
+       "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
+       "integrity": "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@nodelib/fs.stat": "2.0.5",
+@@ -932,7 +924,6 @@
+       "version": "2.0.5",
+       "resolved": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
+       "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 8"
+@@ -942,7 +933,6 @@
+       "version": "1.2.8",
+       "resolved": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
+       "integrity": "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@nodelib/fs.scandir": "2.1.5",
+@@ -956,7 +946,6 @@
+       "version": "0.11.0",
+       "resolved": "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz",
+       "integrity": "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==",
+-      "dev": true,
+       "license": "MIT",
+       "optional": true,
+       "engines": {
+@@ -3008,14 +2997,14 @@
+       "version": "15.7.13",
+       "resolved": "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.13.tgz",
+       "integrity": "sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT"
+     },
+     "node_modules/@types/react": {
+       "version": "18.3.23",
+       "resolved": "https://registry.npmjs.org/@types/react/-/react-18.3.23.tgz",
+       "integrity": "sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "@types/prop-types": "*",
+@@ -3026,7 +3015,7 @@
+       "version": "18.3.7",
+       "resolved": "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.7.tgz",
+       "integrity": "sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "peerDependencies": {
+         "@types/react": "^18.0.0"
+@@ -3357,7 +3346,6 @@
+       "version": "6.1.0",
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.1.0.tgz",
+       "integrity": "sha512-7HSX4QQb4CspciLpVFwyRe79O3xsIZDDLER21kERQ71oaPodF8jL725AgJMFAYbooIqolJoRLuM81SpeUkpkvA==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=12"
+@@ -3370,7 +3358,6 @@
+       "version": "4.3.0",
+       "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
+       "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "color-convert": "^2.0.1"
+@@ -3386,14 +3373,12 @@
+       "version": "1.3.0",
+       "resolved": "https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz",
+       "integrity": "sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/anymatch": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz",
+       "integrity": "sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "normalize-path": "^3.0.0",
+@@ -3407,7 +3392,6 @@
+       "version": "5.0.2",
+       "resolved": "https://registry.npmjs.org/arg/-/arg-5.0.2.tgz",
+       "integrity": "sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/argparse": {
+@@ -3471,14 +3455,12 @@
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
+       "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/binary-extensions": {
+       "version": "2.3.0",
+       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz",
+       "integrity": "sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -3502,7 +3484,6 @@
+       "version": "3.0.3",
+       "resolved": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
+       "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "fill-range": "^7.1.1"
+@@ -3558,7 +3539,6 @@
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/camelcase-css/-/camelcase-css-2.0.1.tgz",
+       "integrity": "sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 6"
+@@ -3606,7 +3586,6 @@
+       "version": "3.6.0",
+       "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz",
+       "integrity": "sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "anymatch": "~3.1.2",
+@@ -3631,7 +3610,6 @@
+       "version": "5.1.2",
+       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
+       "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "is-glob": "^4.0.1"
+@@ -3680,7 +3658,6 @@
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
+       "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "color-name": "~1.1.4"
+@@ -3693,14 +3670,12 @@
+       "version": "1.1.4",
+       "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
+       "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/commander": {
+       "version": "4.1.1",
+       "resolved": "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz",
+       "integrity": "sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 6"
+@@ -3717,7 +3692,6 @@
+       "version": "7.0.6",
+       "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
+       "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
+-      "dev": true,
+       "dependencies": {
+         "path-key": "^3.1.0",
+         "shebang-command": "^2.0.0",
+@@ -3731,7 +3705,6 @@
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz",
+       "integrity": "sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==",
+-      "dev": true,
+       "license": "MIT",
+       "bin": {
+         "cssesc": "bin/cssesc"
+@@ -3918,14 +3891,12 @@
+       "version": "1.2.2",
+       "resolved": "https://registry.npmjs.org/didyoumean/-/didyoumean-1.2.2.tgz",
+       "integrity": "sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==",
+-      "dev": true,
+       "license": "Apache-2.0"
+     },
+     "node_modules/dlv": {
+       "version": "1.1.3",
+       "resolved": "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz",
+       "integrity": "sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/dom-helpers": {
+@@ -3942,7 +3913,6 @@
+       "version": "0.2.0",
+       "resolved": "https://registry.npmjs.org/eastasianwidth/-/eastasianwidth-0.2.0.tgz",
+       "integrity": "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/electron-to-chromium": {
+@@ -3984,7 +3954,6 @@
+       "version": "9.2.2",
+       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz",
+       "integrity": "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/esbuild": {
+@@ -4263,7 +4232,6 @@
+       "version": "3.3.2",
+       "resolved": "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.2.tgz",
+       "integrity": "sha512-oX2ruAFQwf/Orj8m737Y5adxDQO0LAB7/S5MnxCdTNDd4p6BsyIVsv9JQsATbTSq8KHRpLwIHbVlUNatxd+1Ow==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@nodelib/fs.stat": "^2.0.2",
+@@ -4280,7 +4248,6 @@
+       "version": "5.1.2",
+       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
+       "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "is-glob": "^4.0.1"
+@@ -4307,7 +4274,6 @@
+       "version": "1.17.1",
+       "resolved": "https://registry.npmjs.org/fastq/-/fastq-1.17.1.tgz",
+       "integrity": "sha512-sRVD3lWVIXWg6By68ZN7vho9a1pQcN/WBFaAAsDDFzlJjvoGx0P8z7V1t72grFJfJhu3YPZBuu25f7Kaw2jN1w==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "reusify": "^1.0.4"
+@@ -4330,7 +4296,6 @@
+       "version": "7.1.1",
+       "resolved": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
+       "integrity": "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "to-regex-range": "^5.0.1"
+@@ -4381,7 +4346,6 @@
+       "version": "3.3.0",
+       "resolved": "https://registry.npmjs.org/foreground-child/-/foreground-child-3.3.0.tgz",
+       "integrity": "sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "cross-spawn": "^7.0.0",
+@@ -4412,7 +4376,6 @@
+       "version": "2.3.3",
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
+-      "dev": true,
+       "hasInstallScript": true,
+       "license": "MIT",
+       "optional": true,
+@@ -4427,7 +4390,6 @@
+       "version": "1.1.2",
+       "resolved": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz",
+       "integrity": "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==",
+-      "dev": true,
+       "license": "MIT",
+       "funding": {
+         "url": "https://github.com/sponsors/ljharb"
+@@ -4446,7 +4408,6 @@
+       "version": "10.4.5",
+       "resolved": "https://registry.npmjs.org/glob/-/glob-10.4.5.tgz",
+       "integrity": "sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "foreground-child": "^3.1.0",
+@@ -4467,7 +4428,6 @@
+       "version": "6.0.2",
+       "resolved": "https://registry.npmjs.org/glob-parent/-/glob-parent-6.0.2.tgz",
+       "integrity": "sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "is-glob": "^4.0.3"
+@@ -4480,7 +4440,6 @@
+       "version": "2.0.2",
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-2.0.2.tgz",
+       "integrity": "sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "balanced-match": "^1.0.0"
+@@ -4490,7 +4449,6 @@
+       "version": "9.0.5",
+       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-9.0.5.tgz",
+       "integrity": "sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "brace-expansion": "^2.0.1"
+@@ -4536,7 +4494,6 @@
+       "version": "2.0.2",
+       "resolved": "https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz",
+       "integrity": "sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "function-bind": "^1.1.2"
+@@ -4605,7 +4562,6 @@
+       "version": "2.1.0",
+       "resolved": "https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz",
+       "integrity": "sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "binary-extensions": "^2.0.0"
+@@ -4618,7 +4574,6 @@
+       "version": "2.15.1",
+       "resolved": "https://registry.npmjs.org/is-core-module/-/is-core-module-2.15.1.tgz",
+       "integrity": "sha512-z0vtXSwucUJtANQWldhbtbt7BnL0vxiFjIdDLAatwhDYty2bad6s+rijD6Ri4YuYJubLzIJLUidCh09e1djEVQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "hasown": "^2.0.2"
+@@ -4634,7 +4589,6 @@
+       "version": "2.1.1",
+       "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+       "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=0.10.0"
+@@ -4644,7 +4598,6 @@
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",
+       "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -4654,7 +4607,6 @@
+       "version": "4.0.3",
+       "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
+       "integrity": "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "is-extglob": "^2.1.1"
+@@ -4667,7 +4619,6 @@
+       "version": "7.0.0",
+       "resolved": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
+       "integrity": "sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=0.12.0"
+@@ -4677,14 +4628,12 @@
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+       "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+-      "dev": true,
+       "license": "ISC"
+     },
+     "node_modules/jackspeak": {
+       "version": "3.4.3",
+       "resolved": "https://registry.npmjs.org/jackspeak/-/jackspeak-3.4.3.tgz",
+       "integrity": "sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==",
+-      "dev": true,
+       "license": "BlueOak-1.0.0",
+       "dependencies": {
+         "@isaacs/cliui": "^8.0.2"
+@@ -4700,7 +4649,6 @@
+       "version": "1.21.6",
+       "resolved": "https://registry.npmjs.org/jiti/-/jiti-1.21.6.tgz",
+       "integrity": "sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==",
+-      "dev": true,
+       "license": "MIT",
+       "bin": {
+         "jiti": "bin/jiti.js"
+@@ -4774,7 +4722,6 @@
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/lilconfig/-/lilconfig-3.1.3.tgz",
+       "integrity": "sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=14"
+@@ -4787,7 +4734,6 @@
+       "version": "1.2.4",
+       "resolved": "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz",
+       "integrity": "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/locate-path": {
+@@ -5297,7 +5243,6 @@
+       "version": "10.4.3",
+       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-10.4.3.tgz",
+       "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==",
+-      "dev": true,
+       "license": "ISC"
+     },
+     "node_modules/lucide-react": {
+@@ -5322,7 +5267,6 @@
+       "version": "1.4.1",
+       "resolved": "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz",
+       "integrity": "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 8"
+@@ -5332,7 +5276,6 @@
+       "version": "4.0.8",
+       "resolved": "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz",
+       "integrity": "sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "braces": "^3.0.3",
+@@ -5359,7 +5302,6 @@
+       "version": "7.1.2",
+       "resolved": "https://registry.npmjs.org/minipass/-/minipass-7.1.2.tgz",
+       "integrity": "sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==",
+-      "dev": true,
+       "license": "ISC",
+       "engines": {
+         "node": ">=16 || 14 >=14.17"
+@@ -5376,7 +5318,6 @@
+       "version": "2.7.0",
+       "resolved": "https://registry.npmjs.org/mz/-/mz-2.7.0.tgz",
+       "integrity": "sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "any-promise": "^1.0.0",
+@@ -5388,7 +5329,6 @@
+       "version": "3.3.11",
+       "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz",
+       "integrity": "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "github",
+@@ -5431,7 +5371,6 @@
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz",
+       "integrity": "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=0.10.0"
+@@ -5460,7 +5399,6 @@
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/object-hash/-/object-hash-3.0.0.tgz",
+       "integrity": "sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 6"
+@@ -5520,7 +5458,6 @@
+       "version": "1.0.1",
+       "resolved": "https://registry.npmjs.org/package-json-from-dist/-/package-json-from-dist-1.0.1.tgz",
+       "integrity": "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==",
+-      "dev": true,
+       "license": "BlueOak-1.0.0"
+     },
+     "node_modules/parent-module": {
+@@ -5550,7 +5487,6 @@
+       "version": "3.1.1",
+       "resolved": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
+       "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -5560,14 +5496,12 @@
+       "version": "1.0.7",
+       "resolved": "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz",
+       "integrity": "sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/path-scurry": {
+       "version": "1.11.1",
+       "resolved": "https://registry.npmjs.org/path-scurry/-/path-scurry-1.11.1.tgz",
+       "integrity": "sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==",
+-      "dev": true,
+       "license": "BlueOak-1.0.0",
+       "dependencies": {
+         "lru-cache": "^10.2.0",
+@@ -5584,14 +5518,12 @@
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+       "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==",
+-      "dev": true,
+       "license": "ISC"
+     },
+     "node_modules/picomatch": {
+       "version": "2.3.1",
+       "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz",
+       "integrity": "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8.6"
+@@ -5604,7 +5536,6 @@
+       "version": "2.3.0",
+       "resolved": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz",
+       "integrity": "sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=0.10.0"
+@@ -5614,7 +5545,6 @@
+       "version": "4.0.6",
+       "resolved": "https://registry.npmjs.org/pirates/-/pirates-4.0.6.tgz",
+       "integrity": "sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 6"
+@@ -5624,7 +5554,6 @@
+       "version": "8.5.6",
+       "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz",
+       "integrity": "sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -5653,7 +5582,6 @@
+       "version": "15.1.0",
+       "resolved": "https://registry.npmjs.org/postcss-import/-/postcss-import-15.1.0.tgz",
+       "integrity": "sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "postcss-value-parser": "^4.0.0",
+@@ -5671,7 +5599,6 @@
+       "version": "4.0.1",
+       "resolved": "https://registry.npmjs.org/postcss-js/-/postcss-js-4.0.1.tgz",
+       "integrity": "sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "camelcase-css": "^2.0.1"
+@@ -5691,7 +5618,6 @@
+       "version": "4.0.2",
+       "resolved": "https://registry.npmjs.org/postcss-load-config/-/postcss-load-config-4.0.2.tgz",
+       "integrity": "sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -5727,7 +5653,6 @@
+       "version": "6.2.0",
+       "resolved": "https://registry.npmjs.org/postcss-nested/-/postcss-nested-6.2.0.tgz",
+       "integrity": "sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -5753,7 +5678,6 @@
+       "version": "6.1.2",
+       "resolved": "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.1.2.tgz",
+       "integrity": "sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "cssesc": "^3.0.0",
+@@ -5767,7 +5691,6 @@
+       "version": "4.2.0",
+       "resolved": "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz",
+       "integrity": "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/prelude-ls": {
+@@ -5811,7 +5734,6 @@
+       "version": "1.2.3",
+       "resolved": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
+       "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "github",
+@@ -6035,7 +5957,6 @@
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz",
+       "integrity": "sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "pify": "^2.3.0"
+@@ -6045,7 +5966,6 @@
+       "version": "3.6.0",
+       "resolved": "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz",
+       "integrity": "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "picomatch": "^2.2.1"
+@@ -6090,7 +6010,6 @@
+       "version": "1.22.8",
+       "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.22.8.tgz",
+       "integrity": "sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "is-core-module": "^2.13.0",
+@@ -6118,7 +6037,6 @@
+       "version": "1.0.4",
+       "resolved": "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz",
+       "integrity": "sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "iojs": ">=1.0.0",
+@@ -6165,7 +6083,6 @@
+       "version": "1.2.0",
+       "resolved": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+       "integrity": "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "github",
+@@ -6211,7 +6128,6 @@
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+       "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "shebang-regex": "^3.0.0"
+@@ -6224,7 +6140,6 @@
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
+       "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -6234,7 +6149,6 @@
+       "version": "4.1.0",
+       "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz",
+       "integrity": "sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==",
+-      "dev": true,
+       "license": "ISC",
+       "engines": {
+         "node": ">=14"
+@@ -6257,7 +6171,6 @@
+       "version": "1.2.1",
+       "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+       "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==",
+-      "dev": true,
+       "license": "BSD-3-Clause",
+       "engines": {
+         "node": ">=0.10.0"
+@@ -6267,7 +6180,6 @@
+       "version": "5.1.2",
+       "resolved": "https://registry.npmjs.org/string-width/-/string-width-5.1.2.tgz",
+       "integrity": "sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "eastasianwidth": "^0.2.0",
+@@ -6286,7 +6198,6 @@
+       "version": "4.2.3",
+       "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
+       "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "emoji-regex": "^8.0.0",
+@@ -6301,7 +6212,6 @@
+       "version": "5.0.1",
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -6311,14 +6221,12 @@
+       "version": "8.0.0",
+       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
+       "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/string-width-cjs/node_modules/strip-ansi": {
+       "version": "6.0.1",
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
+       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-regex": "^5.0.1"
+@@ -6331,7 +6239,6 @@
+       "version": "7.1.0",
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.1.0.tgz",
+       "integrity": "sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-regex": "^6.0.1"
+@@ -6348,7 +6255,6 @@
+       "version": "6.0.1",
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
+       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-regex": "^5.0.1"
+@@ -6361,7 +6267,6 @@
+       "version": "5.0.1",
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -6384,7 +6289,6 @@
+       "version": "3.35.0",
+       "resolved": "https://registry.npmjs.org/sucrase/-/sucrase-3.35.0.tgz",
+       "integrity": "sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@jridgewell/gen-mapping": "^0.3.2",
+@@ -6420,7 +6324,6 @@
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz",
+       "integrity": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">= 0.4"
+@@ -6443,7 +6346,6 @@
+       "version": "3.4.17",
+       "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.17.tgz",
+       "integrity": "sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@alloc/quick-lru": "^5.2.0",
+@@ -6490,7 +6392,6 @@
+       "version": "3.3.1",
+       "resolved": "https://registry.npmjs.org/thenify/-/thenify-3.3.1.tgz",
+       "integrity": "sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "any-promise": "^1.0.0"
+@@ -6500,7 +6401,6 @@
+       "version": "1.6.0",
+       "resolved": "https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz",
+       "integrity": "sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "thenify": ">= 3.1.0 < 4"
+@@ -6519,7 +6419,6 @@
+       "version": "5.0.1",
+       "resolved": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
+       "integrity": "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "is-number": "^7.0.0"
+@@ -6551,7 +6450,6 @@
+       "version": "0.1.13",
+       "resolved": "https://registry.npmjs.org/ts-interface-checker/-/ts-interface-checker-0.1.13.tgz",
+       "integrity": "sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==",
+-      "dev": true,
+       "license": "Apache-2.0"
+     },
+     "node_modules/tslib": {
+@@ -6714,7 +6612,6 @@
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",
+       "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/vaul": {
+@@ -6832,7 +6729,6 @@
+       "version": "2.0.2",
+       "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
+       "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
+-      "dev": true,
+       "license": "ISC",
+       "dependencies": {
+         "isexe": "^2.0.0"
+@@ -6858,7 +6754,6 @@
+       "version": "8.1.0",
+       "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-8.1.0.tgz",
+       "integrity": "sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-styles": "^6.1.0",
+@@ -6877,7 +6772,6 @@
+       "version": "7.0.0",
+       "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz",
+       "integrity": "sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-styles": "^4.0.0",
+@@ -6895,7 +6789,6 @@
+       "version": "5.0.1",
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",
+       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -6905,14 +6798,12 @@
+       "version": "8.0.0",
+       "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",
+       "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==",
+-      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/wrap-ansi-cjs/node_modules/string-width": {
+       "version": "4.2.3",
+       "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",
+       "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "emoji-regex": "^8.0.0",
+@@ -6927,7 +6818,6 @@
+       "version": "6.0.1",
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",
+       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",
+-      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-regex": "^5.0.1"
+@@ -6940,7 +6830,6 @@
+       "version": "6.2.1",
+       "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz",
+       "integrity": "sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==",
+-      "dev": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=12"
+@@ -6974,7 +6863,6 @@
+       "version": "2.6.0",
+       "resolved": "https://registry.npmjs.org/yaml/-/yaml-2.6.0.tgz",
+       "integrity": "sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ==",
+-      "dev": true,
+       "license": "ISC",
+       "bin": {
+         "yaml": "bin.mjs"
+diff --git a/public/images/placeholders/hero.jpg b/public/images/placeholders/hero.jpg
+new file mode 100644
+index 0000000..b3a4252
+--- /dev/null
++++ b/public/images/placeholders/hero.jpg
+@@ -0,0 +1 @@
++placeholder
+\ No newline at end of file
+diff --git a/public/images/placeholders/journey.jpg b/public/images/placeholders/journey.jpg
+new file mode 100644
+index 0000000..b3a4252
+--- /dev/null
++++ b/public/images/placeholders/journey.jpg
+@@ -0,0 +1 @@
++placeholder
+\ No newline at end of file
+diff --git a/public/images/placeholders/realm-mental.jpg b/public/images/placeholders/realm-mental.jpg
+new file mode 100644
+index 0000000..b3a4252
+--- /dev/null
++++ b/public/images/placeholders/realm-mental.jpg
+@@ -0,0 +1 @@
++placeholder
+\ No newline at end of file
+diff --git a/public/images/placeholders/realm-physical.jpg b/public/images/placeholders/realm-physical.jpg
+new file mode 100644
+index 0000000..b3a4252
+--- /dev/null
++++ b/public/images/placeholders/realm-physical.jpg
+@@ -0,0 +1 @@
++placeholder
+\ No newline at end of file
+diff --git a/public/images/placeholders/realm-spiritual.jpg b/public/images/placeholders/realm-spiritual.jpg
+new file mode 100644
+index 0000000..b3a4252
+--- /dev/null
++++ b/public/images/placeholders/realm-spiritual.jpg
+@@ -0,0 +1 @@
++placeholder
+\ No newline at end of file
+diff --git a/src/App.tsx b/src/App.tsx
+index 78aed79..118eefe 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -5,6 +5,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+ import { BrowserRouter, Routes, Route } from "react-router-dom";
+ import { AuthProvider } from "@/hooks/useAuth";
+ import Index from "./pages/Index";
++import Home from "./pages/public/Home";
++import PhysicalRealm from "./pages/public/PhysicalRealm";
++import MentalRealm from "./pages/public/MentalRealm";
++import SpiritualRealm from "./pages/public/SpiritualRealm";
++import Journey from "./pages/public/Journey";
++import Contact from "./pages/public/Contact";
++import Initiates from "./pages/public/Initiates";
+ import NotFound from "./pages/NotFound";
+ 
+ const queryClient = new QueryClient();
+@@ -17,7 +24,17 @@ const App = () => (
+         <Sonner />
+         <BrowserRouter>
+           <Routes>
+-            <Route path="/" element={<Index />} />
++            {/* Public site */}
++            <Route path="/" element={<Home />} />
++            <Route path="/physical-realm" element={<PhysicalRealm />} />
++            <Route path="/mental-realm" element={<MentalRealm />} />
++            <Route path="/spiritual-realm" element={<SpiritualRealm />} />
++            <Route path="/journey" element={<Journey />} />
++            <Route path="/contact" element={<Contact />} />
++            <Route path="/initiates" element={<Initiates />} />
++
++            {/* Existing auth-gated app lives at /app */}
++            <Route path="/app" element={<Index />} />
+             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+             <Route path="*" element={<NotFound />} />
+           </Routes>
+diff --git a/src/components/icons/Leaf.tsx b/src/components/icons/Leaf.tsx
+new file mode 100644
+index 0000000..e5c2ffb
+--- /dev/null
++++ b/src/components/icons/Leaf.tsx
+@@ -0,0 +1,9 @@
++import React from 'react';
++
++const Leaf: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
++  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
++    <path d="M5 21c8-1 14-7 15-15-8 1-14 7-15 15z" />
++  </svg>
++);
++
++export default Leaf;
+diff --git a/src/components/icons/Moon.tsx b/src/components/icons/Moon.tsx
+new file mode 100644
+index 0000000..7de839f
+--- /dev/null
++++ b/src/components/icons/Moon.tsx
+@@ -0,0 +1,9 @@
++import React from 'react';
++
++const Moon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
++  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
++    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
++  </svg>
++);
++
++export default Moon;
+diff --git a/src/components/icons/Spiral.tsx b/src/components/icons/Spiral.tsx
+new file mode 100644
+index 0000000..e0927ab
+--- /dev/null
++++ b/src/components/icons/Spiral.tsx
+@@ -0,0 +1,16 @@
++import React from 'react';
++
++export const Spiral: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
++  <svg
++    viewBox="0 0 100 100"
++    fill="none"
++    stroke="currentColor"
++    strokeWidth="2"
++    aria-hidden="true"
++    {...props}
++  >
++    <path d="M50 50c10 0 18-8 18-18S60 14 50 14 32 22 32 32c0 12 10 22 22 22 14 0 26-12 26-26S68 2 54 2 30 12 30 26c0 16 14 30 30 30 18 0 34-16 34-34S78-12 60-12" />
++  </svg>
++);
++
++export default Spiral;
+diff --git a/src/components/public/Button.tsx b/src/components/public/Button.tsx
+new file mode 100644
+index 0000000..f514684
+--- /dev/null
++++ b/src/components/public/Button.tsx
+@@ -0,0 +1,36 @@
++import React from 'react';
++import { Button as UIButton } from '@/components/ui/button';
++
++type Variant = 'primary' | 'secondary' | 'ghost';
++
++interface ButtonProps {
++  as?: 'a' | 'button';
++  href?: string;
++  children: React.ReactNode;
++  variant?: Variant;
++  className?: string;
++  onClick?: React.MouseEventHandler;
++}
++
++const variantToUi: Record<Variant, 'default' | 'secondary' | 'ghost' | 'outline'> = {
++  primary: 'default',
++  secondary: 'outline',
++  ghost: 'ghost',
++};
++
++export default function Button({ as = 'button', href, children, variant = 'primary', className, onClick }: ButtonProps) {
++  if (as === 'a' && href) {
++    return (
++      <a href={href}>
++        <UIButton variant={variantToUi[variant]} className={className} onClick={onClick}>
++          {children}
++        </UIButton>
++      </a>
++    );
++  }
++  return (
++    <UIButton variant={variantToUi[variant]} className={className} onClick={onClick}>
++      {children}
++    </UIButton>
++  );
++}
+diff --git a/src/components/public/ContactForm.tsx b/src/components/public/ContactForm.tsx
+new file mode 100644
+index 0000000..7e76f09
+--- /dev/null
++++ b/src/components/public/ContactForm.tsx
+@@ -0,0 +1,49 @@
++import React, { useState } from 'react';
++import { Input } from '@/components/ui/input';
++import { Textarea } from '@/components/ui/textarea';
++import { Label } from '@/components/ui/label';
++import { useToast } from '@/components/ui/use-toast';
++import Button from './Button';
++
++export default function ContactForm() {
++  const { toast } = useToast();
++  const [errors, setErrors] = useState<Record<string, string>>({});
++
++  function onSubmit(e: React.FormEvent) {
++    e.preventDefault();
++    const form = e.target as HTMLFormElement;
++    const data = new FormData(form);
++    const name = String(data.get('name') || '').trim();
++    const email = String(data.get('email') || '').trim();
++    const message = String(data.get('message') || '').trim();
++    const errs: Record<string, string> = {};
++    if (!name) errs.name = 'Name is required';
++    if (!email) errs.email = 'Email is required';
++    if (!message) errs.message = 'Message is required';
++    setErrors(errs);
++    if (Object.keys(errs).length) return;
++    toast({ title: 'Thanks for reaching out', description: "I’ll be in touch soon." });
++    form.reset();
++  }
++
++  return (
++    <form onSubmit={onSubmit} className="space-y-4" aria-live="polite">
++      <div className="grid gap-2">
++        <Label htmlFor="name">Name</Label>
++        <Input id="name" name="name" aria-invalid={!!errors.name} />
++        {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
++      </div>
++      <div className="grid gap-2">
++        <Label htmlFor="email">Email</Label>
++        <Input id="email" name="email" type="email" aria-invalid={!!errors.email} />
++        {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
++      </div>
++      <div className="grid gap-2">
++        <Label htmlFor="message">Message</Label>
++        <Textarea id="message" name="message" rows={5} aria-invalid={!!errors.message} />
++        {errors.message && <p className="text-sm text-red-600">{errors.message}</p>}
++      </div>
++      <Button>Send Message</Button>
++    </form>
++  );
++}
+diff --git a/src/components/public/Footer.tsx b/src/components/public/Footer.tsx
+new file mode 100644
+index 0000000..687a86b
+--- /dev/null
++++ b/src/components/public/Footer.tsx
+@@ -0,0 +1,24 @@
++import React from 'react';
++
++export default function Footer() {
++  return (
++    <footer role="contentinfo" className="border-t mt-16">
++      <div className="mx-auto max-w-6xl px-4 py-8 grid md:grid-cols-3 gap-6 items-center">
++        <p className="text-sm text-muted-foreground">© The Sacred Spiral 2025</p>
++        <div className="flex justify-center">
++          <span
++            aria-hidden="true"
++            className="h-8 w-8 rounded-full border border-dashed border-muted-foreground/40"
++            style={{ animation: 'spin 16s linear infinite' }}
++          />
++        </div>
++        <div className="flex md:justify-end gap-4 text-sm">
++          <a href="/privacy" className="hover:text-primary">Privacy</a>
++          <a href="mailto:hello@example.com" className="hover:text-primary">Email</a>
++          <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-primary">Instagram</a>
++        </div>
++      </div>
++      <style>{`@media (prefers-reduced-motion: reduce){ footer [aria-hidden="true"]{ animation: none !important; } } @keyframes spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}`}</style>
++    </footer>
++  );
++}
+diff --git a/src/components/public/Header.tsx b/src/components/public/Header.tsx
+new file mode 100644
+index 0000000..49db7fc
+--- /dev/null
++++ b/src/components/public/Header.tsx
+@@ -0,0 +1,52 @@
++import React, { useState } from 'react';
++import { Button } from '@/components/ui/button';
++import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
++import { Menu } from 'lucide-react';
++
++const links = [
++  { href: '/', label: 'Home' },
++  { href: '/#realms', label: 'The Spiral' },
++  { href: '/journey', label: 'Journey' },
++  { href: '/#about', label: 'About' },
++  { href: '/#contact', label: 'Contact' },
++  { href: '/initiates', label: 'For Initiates' },
++];
++
++export default function Header() {
++  const [open, setOpen] = useState(false);
++  return (
++    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
++      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
++        <a href="/" className="flex items-center gap-2">
++          <span className="inline-block h-6 w-6 rounded-full bg-gradient-to-br from-primary to-accent" aria-hidden="true" />
++          <span className="font-semibold tracking-wide">The Sacred Spiral</span>
++        </a>
++        <nav aria-label="Primary" className="hidden md:flex items-center gap-6">
++          {links.map((l) => (
++            <a key={l.href} href={l.href} className="text-sm hover:text-primary transition-colors">
++              {l.label}
++            </a>
++          ))}
++        </nav>
++        <div className="md:hidden">
++          <Sheet open={open} onOpenChange={setOpen}>
++            <SheetTrigger asChild>
++              <Button variant="ghost" size="icon" aria-expanded={open} aria-label="Open menu">
++                <Menu className="h-5 w-5" />
++              </Button>
++            </SheetTrigger>
++            <SheetContent side="left" className="w-80">
++              <nav className="mt-8 grid gap-4">
++                {links.map((l) => (
++                  <a key={l.href} href={l.href} className="text-base" onClick={() => setOpen(false)}>
++                    {l.label}
++                  </a>
++                ))}
++              </nav>
++            </SheetContent>
++          </Sheet>
++        </div>
++      </div>
++    </header>
++  );
++}
+diff --git a/src/components/public/PageHero.tsx b/src/components/public/PageHero.tsx
+new file mode 100644
+index 0000000..5f34ebd
+--- /dev/null
++++ b/src/components/public/PageHero.tsx
+@@ -0,0 +1,25 @@
++import React from 'react';
++import Button from './Button';
++
++interface Props {
++  title: string;
++  subtitle?: string;
++  imageAlt?: string;
++  ctaHref?: string;
++  ctaLabel?: string;
++}
++
++export default function PageHero({ title, subtitle, imageAlt = 'decorative', ctaHref, ctaLabel }: Props) {
++  return (
++    <section className="w-full bg-gradient-to-br from-ivory to-sand-200/60">
++      <div className="mx-auto max-w-6xl px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
++        <div className="space-y-4">
++          <h1 className="text-4xl md:text-5xl font-serif tracking-tight">{title}</h1>
++          {subtitle && <p className="text-lg text-muted-foreground">{subtitle}</p>}
++          {ctaHref && ctaLabel && <Button as="a" href={ctaHref}>{ctaLabel}</Button>}
++        </div>
++        <div className="aspect-[4/3] rounded-2xl bg-muted/40" aria-hidden="true" role="img" aria-label={imageAlt} />
++      </div>
++    </section>
++  );
++}
+diff --git a/src/components/public/RealmCard.tsx b/src/components/public/RealmCard.tsx
+new file mode 100644
+index 0000000..95854c7
+--- /dev/null
++++ b/src/components/public/RealmCard.tsx
+@@ -0,0 +1,28 @@
++import React from 'react';
++import Button from './Button';
++
++export interface RealmCardProps {
++  title: 'Physical Realm' | 'Mental Realm' | 'Spiritual Realm';
++  description: string;
++  href: string;
++  imageSrc?: string;
++  accent: 'sage' | 'clay' | 'ink';
++  icon?: React.ReactNode;
++}
++
++export default function RealmCard({ title, description, href, imageSrc, accent, icon }: RealmCardProps) {
++  const ring = accent === 'sage' ? 'ring-sage-600' : accent === 'clay' ? 'ring-clay-600' : 'ring-ink-900';
++  return (
++    <article className={`rounded-2xl overflow-hidden bg-card shadow-sm hover:shadow-md transition-shadow`}> 
++      <div className={`aspect-[4/3] bg-muted/40`} aria-hidden="true" />
++      <div className="p-6 space-y-3">
++        <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs ring-1 ${ring}`}>
++          {icon}
++          <span>{title}</span>
++        </div>
++        <p className="text-muted-foreground">{description}</p>
++        <Button as="a" href={href}>Learn More</Button>
++      </div>
++    </article>
++  );
++}
+diff --git a/src/components/public/Section.tsx b/src/components/public/Section.tsx
+new file mode 100644
+index 0000000..96df837
+--- /dev/null
++++ b/src/components/public/Section.tsx
+@@ -0,0 +1,26 @@
++import React from 'react';
++
++interface Props {
++  id?: string;
++  title?: string;
++  eyebrow?: string;
++  children: React.ReactNode;
++  background?: 'default' | 'ivory' | 'sand';
++}
++
++export default function Section({ id, title, eyebrow, children, background = 'default' }: Props) {
++  const bg = background === 'ivory' ? 'bg-ivory' : background === 'sand' ? 'bg-sand-200/60' : '';
++  return (
++    <section id={id} className={`${bg}`}>
++      <div className="mx-auto max-w-6xl px-4 py-16">
++        {(eyebrow || title) && (
++          <header className="mb-8">
++            {eyebrow && <p className="text-sm tracking-wide text-muted-foreground uppercase">{eyebrow}</p>}
++            {title && <h2 className="mt-2 text-3xl font-serif">{title}</h2>}
++          </header>
++        )}
++        {children}
++      </div>
++    </section>
++  );
++}
+diff --git a/src/components/public/SpiralDivider.tsx b/src/components/public/SpiralDivider.tsx
+new file mode 100644
+index 0000000..33b9d65
+--- /dev/null
++++ b/src/components/public/SpiralDivider.tsx
+@@ -0,0 +1,11 @@
++import React from 'react';
++
++export default function SpiralDivider() {
++  return (
++    <div className="my-10 flex justify-center" aria-hidden="true">
++      <svg width="120" height="20" viewBox="0 0 120 20" fill="none">
++        <path d="M0 10 Q 30 0, 60 10 T 120 10" stroke="currentColor" strokeOpacity=".2" strokeWidth="2" />
++      </svg>
++    </div>
++  );
++}
+diff --git a/src/index.css b/src/index.css
+index a7ae18d..c3215d3 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -48,6 +48,15 @@ All colors MUST be HSL.
+     --moon-silver: 220 15% 85%;
+     --sunset-rose: 340 35% 75%;
+ 
++  /* Phase 1 palette additions */
++  --sage-600: 108 8% 44%; /* #6C7A68 approximate in HSL */
++  --sage-300: 108 8% 70%;
++  --clay-600: 14 30% 43%; /* #8D5B4C approximate */
++  --clay-300: 14 30% 70%;
++  --sand-200: 28 26% 92%; /* #EDE6DF approx */
++  --ivory: 45 37% 96%;    /* #F8F6F2 approx */
++  --ink-900: 28 15% 11%;  /* #1E1B18 approx */
++
+     /* Gradients */
+     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+     --gradient-cycle: linear-gradient(90deg, hsl(var(--menstrual)), hsl(var(--follicular)), hsl(var(--ovulatory)), hsl(var(--luteal)));
+@@ -119,4 +128,9 @@ All colors MUST be HSL.
+   body {
+     @apply bg-background text-foreground;
+   }
++}
++
++/* Smooth scrolling for in-page anchors on public site */
++html {
++  scroll-behavior: smooth;
+ }
+\ No newline at end of file
+diff --git a/src/lib/seo.ts b/src/lib/seo.ts
+new file mode 100644
+index 0000000..0cb35e8
+--- /dev/null
++++ b/src/lib/seo.ts
+@@ -0,0 +1,12 @@
++export const seo = {
++  siteName: 'The Sacred Spiral',
++  defaultTitle: 'The Sacred Spiral',
++  defaultDescription:
++    'A cyclical journey through the Physical, Mental, and Spiritual realms.',
++  url: 'https://example.com',
++  image: 'https://example.com/og.jpg',
++};
++
++export function pageTitle(title?: string) {
++  return title ? `${title} | ${seo.siteName}` : seo.defaultTitle;
++}
+diff --git a/src/pages/public/Contact.tsx b/src/pages/public/Contact.tsx
+new file mode 100644
+index 0000000..3f5aff3
+--- /dev/null
++++ b/src/pages/public/Contact.tsx
+@@ -0,0 +1,27 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import ContactForm from '@/components/public/ContactForm';
++
++export default function Contact() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero title="Connect with Me" subtitle="Questions, resonance, or collaboration?" />
++        <Section>
++          <div className="grid md:grid-cols-2 gap-8 items-start">
++            <div className="space-y-4">
++              <p>Send a note anytime — I’d love to hear what’s alive for you and how the Spiral is calling you.</p>
++              <p>Email: <a className="underline" href="mailto:hello@example.com">hello@example.com</a></p>
++            </div>
++            <ContactForm />
++          </div>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/Home.tsx b/src/pages/public/Home.tsx
+new file mode 100644
+index 0000000..e884367
+--- /dev/null
++++ b/src/pages/public/Home.tsx
+@@ -0,0 +1,90 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import RealmCard from '@/components/public/RealmCard';
++import SpiralDivider from '@/components/public/SpiralDivider';
++import Leaf from '@/components/icons/Leaf';
++import Moon from '@/components/icons/Moon';
++import Spiral from '@/components/icons/Spiral';
++import ContactForm from '@/components/public/ContactForm';
++import Button from '@/components/public/Button';
++
++export default function Home() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero
++          title="The Sacred Spiral"
++          subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms."
++          ctaHref="#realms"
++          ctaLabel="Enter the Spiral"
++        />
++        <Section id="realms" background="ivory" title="The Three Realms">
++          <p className="max-w-2xl text-muted-foreground">
++            The Spiral is a cyclical path of remembering. Move with your body’s wisdom, clarify the mind, and root into spirit.
++          </p>
++          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
++            <RealmCard
++              title="Physical Realm"
++              description="Body intelligence through functional movement, whole-food nutrition, and cycle syncing."
++              href="/physical-realm"
++              accent="sage"
++              icon={<Leaf className="h-4 w-4" />}
++            />
++            <RealmCard
++              title="Mental Realm"
++              description="Shadow work, nervous system support, and mindset re-patterning."
++              href="/mental-realm"
++              accent="clay"
++              icon={<Moon className="h-4 w-4" />}
++            />
++            <RealmCard
++              title="Spiritual Realm"
++              description="Ceremony, ritual, meditation, and feminine embodiment."
++              href="/spiritual-realm"
++              accent="ink"
++              icon={<Spiral className="h-4 w-4" />}
++            />
++          </div>
++        </Section>
++        <SpiralDivider />
++        <Section id="journey" title="Journey Through the Spiral">
++          <div className="grid md:grid-cols-2 gap-6 items-center">
++            <div className="space-y-4">
++              <p>
++                A year-long path through three realms: 3 months in each, with a month of integration between levels.
++                Integration months include optional community meetups and continued access to me for questions and shares.
++              </p>
++              <Button as="a" href="/journey">Learn More</Button>
++            </div>
++            <div className="aspect-[4/3] rounded-2xl bg-muted/40" aria-hidden="true" />
++          </div>
++        </Section>
++        <Section id="about" background="sand" title="About the Work">
++          <div className="grid md:grid-cols-3 gap-6 items-start">
++            <div className="md:col-span-2 space-y-4">
++              <p>
++                This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. We move slowly
++                and intentionally, honoring the intelligence of the body, mind, and spirit.
++              </p>
++              <p>
++                Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
++              </p>
++            </div>
++            <div className="aspect-[4/3] rounded-2xl bg-muted/40" aria-hidden="true" />
++          </div>
++        </Section>
++        <Section id="contact" title="Connect with Me">
++          <p className="max-w-2xl text-muted-foreground mb-6">
++            Have a question or feel called to walk the spiral? I’d love to hear from you.
++          </p>
++          <ContactForm />
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/Initiates.tsx b/src/pages/public/Initiates.tsx
+new file mode 100644
+index 0000000..79c0a82
+--- /dev/null
++++ b/src/pages/public/Initiates.tsx
+@@ -0,0 +1,25 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import Section from '@/components/public/Section';
++import Button from '@/components/public/Button';
++
++export default function Initiates() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <Section title="For Initiates">
++          <div className="space-y-4 max-w-2xl">
++            <p className="text-muted-foreground">Private portal for current students — coming soon.</p>
++            <div className="flex gap-4">
++              <Button as="a" href="/">Back to Home</Button>
++              <Button as="a" href="/contact" variant="secondary">Contact Me</Button>
++            </div>
++          </div>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/Journey.tsx b/src/pages/public/Journey.tsx
+new file mode 100644
+index 0000000..5850e28
+--- /dev/null
++++ b/src/pages/public/Journey.tsx
+@@ -0,0 +1,41 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import Button from '@/components/public/Button';
++
++export default function Journey() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero title="Journey Through the Sacred Spiral" subtitle="A 12-month cyclical path of growth, integration, and remembrance." />
++        <Section title="Timeline">
++          <div className="space-y-2">
++            <p>Three months per realm with one-month integration in between.</p>
++            <ul className="list-disc ml-6 text-muted-foreground">
++              <li>Physical (3mo) → Integration (1mo)</li>
++              <li>Mental (3mo) → Integration (1mo)</li>
++              <li>Spiritual (3mo) → Integration (1mo)</li>
++            </ul>
++          </div>
++        </Section>
++        <Section title="What You Receive">
++          <ul className="list-disc ml-6 text-muted-foreground space-y-1">
++            <li>Guidance and structure</li>
++            <li>Seasonal rhythm</li>
++            <li>Community touchpoints</li>
++          </ul>
++        </Section>
++        <Section>
++          <div className="flex gap-4">
++            <Button as="a" href="/physical-realm">Begin in the Physical Realm</Button>
++            <Button as="a" href="/contact" variant="secondary">Contact Me</Button>
++          </div>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/MentalRealm.tsx b/src/pages/public/MentalRealm.tsx
+new file mode 100644
+index 0000000..207dc9f
+--- /dev/null
++++ b/src/pages/public/MentalRealm.tsx
+@@ -0,0 +1,28 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import Button from '@/components/public/Button';
++
++export default function MentalRealm() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero title="The Mental Realm" subtitle="Shadow work, nervous system literacy, and mindset re-patterning." />
++        <Section>
++          <div className="rounded-xl border p-6 bg-muted/30">
++            <h3 className="font-semibold mb-2">Coming Soon</h3>
++            <p className="text-muted-foreground mb-4">Full program launching soon.</p>
++            <Button as="a" href="/#contact">Notify Me</Button>
++          </div>
++        </Section>
++        <Section>
++          <Button as="a" href="/" variant="secondary">Back to The Spiral</Button>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/PhysicalRealm.tsx b/src/pages/public/PhysicalRealm.tsx
+new file mode 100644
+index 0000000..6076c78
+--- /dev/null
++++ b/src/pages/public/PhysicalRealm.tsx
+@@ -0,0 +1,52 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import Button from '@/components/public/Button';
++
++export default function PhysicalRealm() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero title="The Physical Realm" subtitle="Fitness, nutrition, and cycle syncing — in rhythm with your body." />
++        <Section title="Overview">
++          <div className="space-y-4 max-w-3xl">
++            <p>
++              Functional movement, whole-food nourishment, and training with menstrual phases come together in the
++              Physical Realm. We build strength, capacity, and resilience from a place of body listening.
++            </p>
++            <p>
++              You’ll learn to sync training and recovery with your cycle, eat to support hormones, and cultivate a
++              respectful relationship with the body.
++            </p>
++          </div>
++        </Section>
++        <Section title="Three Pillars">
++          <div className="grid md:grid-cols-3 gap-6">
++            <div className="rounded-xl border p-6">
++              <h3 className="font-semibold mb-2">Fitness</h3>
++              <p className="text-muted-foreground">Functional strength, mobility, and cycles of intensity and recovery.</p>
++            </div>
++            <div className="rounded-xl border p-6">
++              <h3 className="font-semibold mb-2">Nutrition</h3>
++              <p className="text-muted-foreground">Whole-food, hormone-supportive meals aligned to your needs.</p>
++            </div>
++            <div className="rounded-xl border p-6">
++              <h3 className="font-semibold mb-2">Cycle Syncing</h3>
++              <p className="text-muted-foreground">Training, fuel, and self-care tuned to menstrual, follicular, ovulatory, and luteal phases.</p>
++            </div>
++          </div>
++        </Section>
++        <Section>
++          <div className="flex gap-4">
++            <Button as="a" href="/initiates">Join the Physical Realm</Button>
++            <Button as="a" href="/" variant="secondary">Back to The Spiral</Button>
++          </div>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/src/pages/public/SpiritualRealm.tsx b/src/pages/public/SpiritualRealm.tsx
+new file mode 100644
+index 0000000..e916f82
+--- /dev/null
++++ b/src/pages/public/SpiritualRealm.tsx
+@@ -0,0 +1,28 @@
++import React from 'react';
++import Header from '@/components/public/Header';
++import Footer from '@/components/public/Footer';
++import PageHero from '@/components/public/PageHero';
++import Section from '@/components/public/Section';
++import Button from '@/components/public/Button';
++
++export default function SpiritualRealm() {
++  return (
++    <div>
++      <Header />
++      <main>
++        <PageHero title="The Spiritual Realm" subtitle="Ceremony, ritual, meditation, and feminine embodiment." />
++        <Section>
++          <div className="rounded-xl border p-6 bg-muted/30">
++            <h3 className="font-semibold mb-2">Coming Soon</h3>
++            <p className="text-muted-foreground mb-4">Full program launching soon.</p>
++            <Button as="a" href="/#contact">Notify Me</Button>
++          </div>
++        </Section>
++        <Section>
++          <Button as="a" href="/" variant="secondary">Back to The Spiral</Button>
++        </Section>
++      </main>
++      <Footer />
++    </div>
++  );
++}
+diff --git a/tailwind.config.ts b/tailwind.config.ts
+index 0b958c6..d94572b 100644
+--- a/tailwind.config.ts
++++ b/tailwind.config.ts
+@@ -62,6 +62,20 @@ export default {
+ 				'earth-brown': 'hsl(var(--earth-brown))',
+ 				'moon-silver': 'hsl(var(--moon-silver))',
+ 				'sunset-rose': 'hsl(var(--sunset-rose))',
++				// Phase 1 token additions
++				sage: {
++					600: 'hsl(var(--sage-600))',
++					300: 'hsl(var(--sage-300, var(--sage-600)))'
++				},
++				clay: {
++					600: 'hsl(var(--clay-600))',
++					300: 'hsl(var(--clay-300, var(--clay-600)))'
++				},
++				sand: {
++					200: 'hsl(var(--sand-200))'
++				},
++				ivory: 'hsl(var(--ivory))',
++				'ink-900': 'hsl(var(--ink-900))',
+ 				sidebar: {
+ 					DEFAULT: 'hsl(var(--sidebar-background))',
+ 					foreground: 'hsl(var(--sidebar-foreground))',
+diff --git a/website - updates/phase-1-public-website-plan.md b/website - updates/phase-1-public-website-plan.md
+new file mode 100644
+index 0000000..9c4bbdc
+--- /dev/null
++++ b/website - updates/phase-1-public-website-plan.md	
+@@ -0,0 +1,396 @@
++Got it. Here’s a meticulous, copy-pasteable **Phase 1 Front-End Implementation Plan** for an AI developer agent. It assumes a modern React/Next.js stack (Lovable’s default), Tailwind (or equivalent utility CSS), and a componentized design. It focuses on **public pages only** (no auth required), with placeholders for images and content blocks. It also instructs the agent to **scan the existing codebase and extend rather than duplicate**.
++
++---
++
++# Sacred Spiral — Phase 1 Public Website (Front-End Only)
++
++## Global Agent Rules (apply before any work)
++
++1. **Scan first, then extend**
++
++   * Search the repository for existing components/pages/styles **before creating new files**.
++   * Reuse and extend shared components (navigation, footer, button, layout wrappers).
++   * If a similarly named component exists, **augment it** rather than duplicating.
++   * If a route exists, **edit in place**; do not create parallel routes.
++2. **Naming**
++
++   * Use kebab-case for routes (`/physical-realm`).
++   * Use PascalCase for components (`RealmCard.tsx`).
++   * Use camelCase for local constants/functions.
++3. **Design tokens**
++
++   * Add (or extend) a theme file or Tailwind config shades:
++
++     * Colors: `sage-600 (#6C7A68)`, `sage-300`, `clay-600 (#8D5B4C)`, `clay-300`, `sand-200 (#EDE6DF)`, `ivory (#F8F6F2)`, `ink-900 (#1E1B18)`
++     * Typography: Elegant serif for headings (e.g., “Fraunces”, “Cormorant Garamond”), clean sans for body (e.g., “Inter”, “Nunito Sans”).
++4. **Aesthetic**
++
++   * Soft shadows, rounded-2xl corners, spacious line-height.
++   * Subtle motion (fade/slide at 150–250ms, easing `[0.22, 1, 0.36, 1]`).
++   * Organic accents: spiral, moon phases, botanical line art (use **SVG placeholders**).
++5. **Accessibility & SEO**
++
++   * Semantic landmarks: `header`, `nav`, `main`, `section`, `footer`.
++   * Each page: unique `<title>`, meta description, OpenGraph/Twitter tags.
++   * Alt text for all images (use “decorative” when appropriate with `aria-hidden="true"` if purely ornamental).
++   * Minimum color contrast AA.
++
++---
++
++## File/Folder Structure (create only if missing)
++
++```
++/src
++  /app or /pages
++    /components
++      Header.tsx
++      Footer.tsx
++      PageHero.tsx
++      RealmCard.tsx
++      Section.tsx
++      SpiralDivider.tsx
++      ContactForm.tsx
++      Button.tsx
++    /(icons)
++      Moon.tsx
++      Spiral.tsx
++      Leaf.tsx
++    /(images)
++      placeholders/
++        hero.jpg
++        realm-physical.jpg
++        realm-mental.jpg
++        realm-spiritual.jpg
++        journey.jpg
++  /lib
++    seo.ts
++```
++
++> If the project uses `/app` router, use nested routes (`/app/(public)/...`). If it uses `/pages`, create pages accordingly. **Scan first**.
++
++---
++
++## Shared Components (specs & placement)
++
++### 1) `Header.tsx`
++
++* **Purpose:** Global navigation bar.
++* **Props:** none.
++* **Structure:**
++
++  * Left: logo lockup (“The Sacred Spiral” + small spiral icon).
++  * Right: nav links: `Home`, `The Spiral` (anchor to realms on `/`), `Journey`, `About` (anchor on `/`), `Contact`, `For Initiates` (link to `/initiates` placeholder).
++* **Behavior:**
++
++  * Sticky on scroll, subtle shadow after 20px.
++  * Mobile: hamburger → slide-over menu.
++* **Accessibility:**
++
++  * `<nav aria-label="Primary">`.
++  * Mobile button `aria-expanded` toggled.
++
++### 2) `Footer.tsx`
++
++* **Content:**
++
++  * Left: short line (“© The Sacred Spiral 2025”).
++  * Center: small spiral animation (SVG line rotates slowly, `prefers-reduced-motion` respected).
++  * Right: social icons (Instagram), email link, small nav: `Privacy`, `Contact`.
++* **Accessibility:** `<footer role="contentinfo">`.
++
++### 3) `PageHero.tsx`
++
++* **Props:** `{ title: string; subtitle?: string; imageAlt?: string }`
++* **Layout:** full-width soft background (ivory/sand gradient), left-aligned copy, right-aligned **image placeholder**.
++* **Use on:** Home, realm pages, Journey, Contact.
++* **Motion:** fade+rise on load.
++
++### 4) `Section.tsx`
++
++* **Props:** `{ id?: string; title?: string; eyebrow?: string; children: ReactNode; background?: 'default'|'ivory'|'sand'; }`
++* **Use:** General container with consistent padding, max-width, and optional background.
++
++### 5) `RealmCard.tsx`
++
++* **Props:**
++
++  ```
++  {
++    title: 'Physical Realm'|'Mental Realm'|'Spiritual Realm',
++    description: string,
++    href: string,          // e.g. '/physical-realm'
++    imageSrc?: string,     // placeholder
++    accent: 'sage'|'clay'|'ink',
++    icon?: ReactNode       // e.g. Moon, Leaf, Spiral
++  }
++  ```
++* **Layout:** Image (top), title, description, **primary button “Learn More”**.
++* **Motion:** hover lift + subtle shadow.
++* **Usage:** On Home “Three Realms” section (three instances).
++
++### 6) `SpiralDivider.tsx`
++
++* **Purpose:** Visual flourish between sections.
++* **Implementation:** Inline SVG spiral path, low opacity, `aria-hidden="true"`.
++
++### 7) `Button.tsx`
++
++* **Variants:** primary (sage), secondary (clay outline), ghost.
++* **Props:** `{ as?: 'a'|'button', href?: string, children, variant?: 'primary'|'secondary'|'ghost' }`
++
++### 8) `ContactForm.tsx`
++
++* **Fields:** Name (required), Email (required), Message (required).
++* **Behavior:** For Phase 1, **client-side validation only** and **no external submission**; show success toast “Thanks for reaching out — I’ll be in touch soon.”
++
++  * Implement a `submitHandler` that prevents default and displays success.
++  * Leave a TODO to wire backend later.
++* **Accessibility:** Labels tied to inputs; error messages with `aria-live="polite"`.
++
++---
++
++## Routes & Page Specs
++
++### `/` — Home / Landing (default, public)
++
++**Goal:** Invite into the Spiral; route to all public subpages.
++
++**Sections & exact content order:**
++
++1. **Hero** (`PageHero`)
++
++   * Title: “The Sacred Spiral”
++   * Subtitle: “A journey of embodiment through the Physical, Mental, and Spiritual realms.”
++   * Right: image placeholder (soft botanical/spiral).
++   * Primary CTA: “Enter the Spiral” → smooth scroll to `#realms`.
++
++2. **Three Realms** (`Section id="realms" background="ivory"`)
++
++   * Intro copy (2–3 sentences):
++     “The Spiral is a cyclical path of remembering. Move with your body’s wisdom, clarify the mind, and root into spirit.”
++   * Grid (3 cols desktop, 1 col mobile) of `RealmCard`s:
++
++     * **Physical Realm**
++
++       * desc: “Body intelligence through functional movement, whole-food nutrition, and cycle syncing.”
++       * href: `/physical-realm`, accent: `sage`, icon: `<Leaf />`, image: `/images/placeholders/realm-physical.jpg`
++     * **Mental Realm**
++
++       * desc: “Shadow work, nervous system support, and mindset re-patterning.”
++       * href: `/mental-realm`, accent: `clay`, icon: `<Moon />`, image: `/images/placeholders/realm-mental.jpg`
++     * **Spiritual Realm**
++
++       * desc: “Ceremony, ritual, meditation, and feminine embodiment.”
++       * href: `/spiritual-realm`, accent: `ink`, icon: `<Spiral />`, image: `/images/placeholders/realm-spiritual.jpg`
++
++3. **Journey Through the Spiral** (`Section id="journey"`)
++
++   * Two-column layout: left copy + right image placeholder (`/images/placeholders/journey.jpg`).
++   * Header: “Journey Through the Spiral”
++   * Text (concise):
++     “A year-long path through three realms: 3 months in each, with a month of integration between levels. Integration months include optional community meetups and continued access to me for questions and shares.”
++   * CTA: Button “Learn More” → `/journey`.
++
++4. **About (on Home)** (`Section id="about" background="sand"`)
++
++   * Header: “About the Work”
++   * Paragraphs (2–3): language about cyclical living, body sovereignty, earth-rooted transformation.
++   * Optional small portrait/illustration placeholder floated right on desktop.
++
++5. **Contact (on Home)** (`Section id="contact"`)
++
++   * Header: “Connect with Me”
++   * Subtext: “Have a question or feel called to walk the spiral? I’d love to hear from you.”
++   * Include `ContactForm`.
++
++6. **Footer**
++
++**SEO for `/`:**
++
++* `<title>The Sacred Spiral — Feminine, Earth-Rooted Transformation</title>`
++* Description: “A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony.”
++
++---
++
++### `/physical-realm` — Learn More (active realm)
++
++**Hero:**
++
++* Title: “The Physical Realm”
++* Subtitle: “Fitness, nutrition, and cycle syncing — in rhythm with your body.”
++* Right image placeholder.
++
++**Content sections:**
++
++1. **Overview**
++
++   * 2–3 paragraphs: functional movement, whole-food nourishment, training with menstrual phases.
++2. **Three Pillars (cards row)**
++
++   * **Fitness:** “Functional strength, mobility, and cycles of intensity and recovery.”
++   * **Nutrition:** “Whole-food, hormone-supportive meals aligned to your needs.”
++   * **Cycle Syncing:** “Training, fuel, and self-care tuned to menstrual, follicular, ovulatory, and luteal phases.”
++3. **CTA**
++
++   * Primary Button: “Join the Physical Realm” → (for now) `/initiates` or a placeholder checkout page.
++   * Secondary Button: “Back to The Spiral” → `/`.
++
++**SEO:**
++
++* Title/desc emphasizing cycle-synced training & whole-food nutrition.
++
++---
++
++### `/mental-realm` — Learn More (coming soon)
++
++**Hero:** Title “The Mental Realm”, subtitle “Shadow work, nervous system literacy, and mindset re-patterning.”
++
++**Content:**
++
++* Short description (2–3 paragraphs).
++* **Coming Soon** panel (soft card):
++
++  * “Full program launching soon.”
++  * Notification CTA (for now, button opens `Contact` section or mailto).
++
++**CTA:**
++
++* “Back to The Spiral” → `/`.
++
++---
++
++### `/spiritual-realm` — Learn More (coming soon)
++
++**Hero:** Title “The Spiritual Realm”, subtitle “Ceremony, ritual, meditation, and feminine embodiment.”
++
++**Content & CTA:** same pattern as Mental Realm.
++
++---
++
++### `/journey` — The Year-Long Path
++
++**Hero:** Title “Journey Through the Sacred Spiral”, subtitle “A 12-month cyclical path of growth, integration, and remembrance.”
++
++**Content sections:**
++
++1. **Timeline/Spiral Concept**
++
++   * Copy: “Three months per realm with one-month integration in between.”
++   * Visual: a **vertical timeline** OR **spiral graphic** (SVG placeholder) labeling order: Physical (3mo) → Integration (1mo) → Mental (3mo) → Integration (1mo) → Spiritual (3mo) → Integration (1mo).
++2. **Integration Months**
++
++   * Copy: Optional community meetups; continued access to guide for questions/shares; gentle assignments.
++3. **What You Receive** (bulleted list)
++
++   * Guidance, structure, seasonal rhythm, community touchpoints.
++4. **CTA**
++
++   * Primary: “Begin in the Physical Realm” → `/physical-realm`.
++   * Secondary: “Contact Me” → `/contact`.
++
++---
++
++### `/contact` — Contact Page
++
++**Hero:** Title “Connect with Me”, subtitle “Questions, resonance, or collaboration?”
++
++**Content:**
++
++* Left column: short welcoming copy, email link.
++* Right column: `ContactForm` (Name, Email, Message).
++* On submit: success state with message; keep the form for another message.
++
++---
++
++### `/initiates` — Placeholder (public)
++
++* Title: “For Initiates”
++* Text: “Private portal for current students — coming soon.”
++* Buttons: “Back to Home” and “Contact Me”.
++
++---
++
++## Component Copy (starter text)
++
++* Use the exact strings above; they’re intentionally concise.
++* Where not specified, insert **one short paragraph** (2–4 sentences), tone: grounded, warm, invitational.
++
++---
++
++## Motion & Micro-interactions
++
++* **On load:** Section fade-ins (20px rise).
++* **Buttons:** scale 1.02 on hover/focus; focus outline 2px `sage-600`.
++* **RealmCard hover:** lift + soft shadow.
++* Respect `prefers-reduced-motion`.
++
++---
++
++## Responsive Rules
++
++* Breakpoints: mobile-first; at `md` switch grids to 2 cols where relevant; at `lg` use 3 cols in the Realms grid.
++* Hero: stack columns on mobile; align center text; image full-width above copy.
++
++---
++
++## SEO & Head Tags (all pages)
++
++Use a shared helper `lib/seo.ts`:
++
++```ts
++export const seo = {
++  siteName: 'The Sacred Spiral',
++  defaultTitle: 'The Sacred Spiral',
++  defaultDescription: 'A cyclical journey through the Physical, Mental, and Spiritual realms.',
++  url: 'https://<your-domain>',
++  image: 'https://<your-domain>/og.jpg'
++}
++```
++
++On each page, set:
++
++* `<title>{Page Title} | The Sacred Spiral</title>`
++* `<meta name="description" content="...">`
++* OpenGraph/Twitter meta using `seo`.
++
++---
++
++## QA / Acceptance Criteria Checklist
++
++* [ ] `/` renders with **Hero → Realms → Journey → About → Contact → Footer** in that order.
++* [ ] Each realm card shows **“Learn More”** and navigates correctly.
++* [ ] `/physical-realm`, `/mental-realm`, `/spiritual-realm`, `/journey`, `/contact`, `/initiates` exist and match content specs.
++* [ ] ContactForm validates required fields and shows success state (no backend calls).
++* [ ] Header is sticky; “The Spiral” scrolls to Realms anchor on Home.
++* [ ] All images are placeholders in `/images/placeholders/*`.
++* [ ] No duplicate components/routes; existing site components reused/extended.
++* [ ] Lighthouse: no major a11y errors; titles/descriptions set; links have discernible names.
++* [ ] Mobile layout verified (≤375px width).
++
++---
++
++## Developer Notes / TODOs (for future phases, don’t implement now)
++
++* Wire `ContactForm` to backend/email service.
++* Add `/login` + Supabase auth; role-based gating for Initiates portal.
++* Build dashboard routes and data models.
++* Replace placeholders with brand imagery.
++
++---
++
++## Agent Execution Order (do this in sequence)
++
++1. **Scan codebase** for existing `Header`, `Footer`, layout, typography, color tokens, buttons. Reuse or extend.
++2. **Create/verify routes**: `/`, `/physical-realm`, `/mental-realm`, `/spiritual-realm`, `/journey`, `/contact`, `/initiates`.
++3. **Implement shared components** (only if missing): `PageHero`, `Section`, `RealmCard`, `SpiralDivider`, `ContactForm`, `Button`.
++4. **Build Home** using exact section order and copy above.
++5. **Build realm pages** with learn-more content and “Coming Soon” messages for Mental/Spiritual.
++6. **Build Journey page** with the timeline/spiral placeholder and CTAs.
++7. **Build Contact page** with functional client-side form.
++8. **Wire header nav** links + anchors; ensure smooth scroll.
++9. **Set SEO meta** per page.
++10. **Run QA checklist**, fix issues, commit.
++
++---
++
++(Added verbatim from user guidance as the canonical Phase 1 plan.)
+-- 
+2.51.0.windows.1
+
