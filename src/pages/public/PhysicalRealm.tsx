@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/public/Header';
+import Seo from '@/components/Seo';
 import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
@@ -8,6 +9,7 @@ import Button from '@/components/public/Button';
 export default function PhysicalRealm() {
   return (
     <div>
+      <Seo title="The Physical Realm" description="Fitness, nutrition, and cycle syncing — in rhythm with your body." />
       <Header />
       <main>
         <PageHero title="The Physical Realm" subtitle="Fitness, nutrition, and cycle syncing — in rhythm with your body." />

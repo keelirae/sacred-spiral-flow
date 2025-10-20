@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/public/Header';
+import Seo from '@/components/Seo';
 import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
@@ -14,6 +15,10 @@ import Button from '@/components/public/Button';
 export default function Home() {
   return (
     <div>
+      <Seo
+        title="The Sacred Spiral — Feminine, Earth-Rooted Transformation"
+        description="A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony."
+      />
       <Header />
       <main>
         <PageHero

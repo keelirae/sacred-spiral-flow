@@ -10,8 +10,9 @@ interface Props {
 
 export default function Section({ id, title, eyebrow, children, background = 'default' }: Props) {
   const bg = background === 'ivory' ? 'bg-ivory' : background === 'sand' ? 'bg-sand-200/60' : '';
+  const anchorOffset = id ? 'scroll-mt-24' : '';
   return (
-    <section id={id} className={`${bg}`}>
+    <section id={id} className={`${bg} ${anchorOffset}`}>
       <div className="mx-auto max-w-6xl px-4 py-16">
         {(eyebrow || title) && (
           <header className="mb-8">
