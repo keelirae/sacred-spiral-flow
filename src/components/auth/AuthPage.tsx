@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const AuthPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
   const [error, setError] = useState<string | null>(null);
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
@@ -37,6 +38,12 @@ const AuthPage = () => {
         title: "Welcome back!",
         description: "You've successfully signed in."
       });
+      // redirect if next param present
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next');
+      if (next) {
+        window.location.href = next;
+      }
     }
 
     setIsLoading(false);
@@ -68,6 +75,13 @@ const AuthPage = () => {
         description: "Please check your email to verify your account."
       });
     }
+  // Read query params for default tab (signin/signup)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'signup') setActiveTab('signup');
+    else setActiveTab('signin');
+  }, []);
 
     setIsLoading(false);
   };
@@ -100,7 +114,7 @@ const AuthPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="signin" className="w-full">
+            <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'signin' | 'signup')} className="w-full">
               <TabsList className="grid w-full grid-cols-2 bg-muted">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>

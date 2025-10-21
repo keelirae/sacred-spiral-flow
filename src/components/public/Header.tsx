@@ -5,12 +5,11 @@ import { Menu } from 'lucide-react';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/#realms', label: 'The Spiral' },
+  { href: '/#spiral', label: 'The Spiral' },
   { href: '/journey', label: 'Journey' },
-  { href: '/#about', label: 'About' },
-  { href: '/#contact', label: 'Contact' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
   { href: '/initiates', label: 'For Initiates' },
-  { href: '/auth', label: 'Sign In' },
 ];
 
 export default function Header() {

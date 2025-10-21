@@ -7,22 +7,21 @@ import Button from '@/components/public/Button';
 
 export default function Initiates() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Seo title="For Initiates" description="Private portal for current students — coming soon." />
       <Header />
-      <main>
+  <main id="main" className="flex-1">
         <Section title="For Initiates">
-          <div className="space-y-4 max-w-2xl">
-            <p className="text-muted-foreground">Private portal for current students — coming soon.</p>
-            <div className="flex gap-4">
+          <div className="space-y-6 max-w-2xl mx-auto text-center">
+            <p className="text-muted-foreground">Private Portal — Coming Soon.</p>
+            <div className="flex justify-center gap-3">
               <Button as="a" href="/">Back to Home</Button>
-              <Button as="a" href="/auth" variant="secondary">Sign In</Button>
-              <Button as="a" href="/contact" variant="ghost">Contact Me</Button>
+              <Button as="a" href="/auth?tab=signin&next=/app" variant="secondary">Sign In / Sign Up</Button>
             </div>
           </div>
         </Section>
       </main>
       <Footer />
     </div>
-  );
+  )
 }

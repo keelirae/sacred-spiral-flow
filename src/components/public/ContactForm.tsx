@@ -24,26 +24,28 @@ export default function ContactForm() {
     if (Object.keys(errs).length) return;
     toast({ title: 'Thanks for reaching out', description: "I’ll be in touch soon." });
     form.reset();
+    const nameField = form.querySelector<HTMLInputElement>('#name');
+    nameField?.focus();
   }
 
   return (
     <form onSubmit={onSubmit} className="space-y-4" aria-live="polite">
-      <div className="grid gap-2">
+  <div className="grid gap-2">
         <Label htmlFor="name">Name</Label>
-        <Input id="name" name="name" aria-invalid={!!errors.name} />
-  {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
+    <Input id="name" name="name" required aria-invalid={!!errors.name} aria-describedby={errors.name ? 'name-error' : undefined} />
+  {errors.name && <p id="name-error" className="text-sm text-destructive">{errors.name}</p>}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" name="email" type="email" aria-invalid={!!errors.email} />
-  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+    <Input id="email" name="email" type="email" required aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-error' : undefined} />
+  {errors.email && <p id="email-error" className="text-sm text-destructive">{errors.email}</p>}
       </div>
       <div className="grid gap-2">
         <Label htmlFor="message">Message</Label>
-        <Textarea id="message" name="message" rows={5} aria-invalid={!!errors.message} />
-  {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
+    <Textarea id="message" name="message" rows={5} required aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined} />
+  {errors.message && <p id="message-error" className="text-sm text-destructive">{errors.message}</p>}
       </div>
-      <Button>Send Message</Button>
+  <Button>Send Message</Button>
     </form>
   );
 }

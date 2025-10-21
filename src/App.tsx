@@ -11,8 +11,11 @@ import MentalRealm from "./pages/public/MentalRealm";
 import SpiritualRealm from "./pages/public/SpiritualRealm";
 import Journey from "./pages/public/Journey";
 import Contact from "./pages/public/Contact";
+// Auth removed from public site per spec
 import Auth from "./pages/public/Auth";
 import Initiates from "./pages/public/Initiates";
+import About from "@/pages/public/About";
+import Privacy from "./pages/public/Privacy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,10 +34,11 @@ const App = () => (
             <Route path="/mental-realm" element={<MentalRealm />} />
             <Route path="/spiritual-realm" element={<SpiritualRealm />} />
             <Route path="/journey" element={<Journey />} />
+            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/login" element={<Auth />} />
             <Route path="/initiates" element={<Initiates />} />
+            <Route path="/privacy" element={<Privacy />} />
 
             {/* Existing auth-gated app lives at /app */}
             <Route path="/app" element={<Index />} />

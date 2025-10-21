@@ -8,10 +8,10 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Nature-rooted, feminine Sacred Spiral v2 design system */
-    /* Neutrals */
-    --background: 42 35% 97%; /* ivory paper */
-  --foreground: 26 24% 10%; /* ink deeper for contrast */
+  /* The Sacred Spiral brand palette (guided colors) */
+  /* Neutrals */
+  --background: 36 40% 95%; /* ivory #F6F2EC approx */
+  --foreground: 0 0% 12%;  /* ink #1E1E1E approx */
 
     --card: 42 35% 99%;
     --card-foreground: 26 20% 14%;
@@ -19,25 +19,25 @@ All colors MUST be HSL.
     --popover: 42 35% 99%;
     --popover-foreground: 26 20% 14%;
 
-    /* Brand */
-    --primary: 156 28% 36%; /* deep forest */
-    --primary-foreground: 42 40% 96%; /* light ivory */
+  /* Brand accents: sage + clay */
+  --primary: 144 17% 62%;          /* sage #8FAF9C */
+  --primary-foreground: 0 0% 12%;  /* ink on sage */
 
-    --secondary: 10 30% 86%; /* clay rose (soft) */
-    --secondary-foreground: 26 20% 18%;
+  --secondary: 12 30% 70%;         /* clay #C9A39A */
+  --secondary-foreground: 0 0% 12%;
 
-    --muted: 32 22% 94%; /* sand */
-  --muted-foreground: 26 16% 28%;
+  --muted: 36 28% 94%; /* lighter ivory paper */
+  --muted-foreground: 0 0% 25%;
 
-  --accent: 14 80% 58%; /* brighter coral */
-  --accent-foreground: 0 0% 100%;
+  --accent: 12 30% 70%; /* use clay as accent by default */
+  --accent-foreground: 0 0% 12%;
 
     --destructive: 2 84% 56%;
     --destructive-foreground: 0 0% 100%;
 
-  --border: 28 24% 76%;
-  --input: 28 22% 90%;
-    --ring: 156 28% 36%;
+  --border: 30 18% 80%;
+  --input: 30 20% 92%;
+  --ring: 144 17% 62%;
 
     /* Sacred Spiral cycle colors */
     --menstrual: 350 42% 68%;
@@ -45,8 +45,8 @@ All colors MUST be HSL.
     --ovulatory: 45 60% 70%;
     --luteal: 28 38% 66%;
     
-    --nature-green: 156 28% 36%;
-    --earth-brown: 28 30% 42%;
+  --nature-green: 144 17% 62%;
+  --earth-brown: 28 30% 38%;
     --moon-silver: 210 14% 82%;
     --sunset-rose: 350 42% 68%;
 
@@ -60,8 +60,8 @@ All colors MUST be HSL.
     --ink-900: 24 18% 12%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-  --gradient-nature: radial-gradient(1200px 600px at 20% -10%, hsl(156 28% 38% / 10%), transparent), radial-gradient(1200px 600px at 100% 0%, hsl(14 80% 58% / 14%), transparent);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+  --gradient-nature: radial-gradient(1200px 600px at 20% -10%, hsl(144 17% 62% / 10%), transparent), radial-gradient(1200px 600px at 100% 0%, hsl(12 30% 70% / 18%), transparent);
     --gradient-cycle: linear-gradient(90deg, hsl(var(--menstrual)), hsl(var(--follicular)), hsl(var(--ovulatory)), hsl(var(--luteal)));
 
     --radius: 0.6rem;
@@ -132,4 +132,26 @@ All colors MUST be HSL.
 /* Smooth scrolling for in-page anchors on public site */
 html {
   scroll-behavior: smooth;
+}
+
+/* Subtle slide-up animation with reduced-motion respect */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 140ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up {
+    animation: none;
+  }
 }

@@ -21,21 +21,19 @@ const variantToUi: Record<Variant, 'default' | 'secondary' | 'ghost' | 'outline'
 export default function Button({ as = 'button', href, children, variant = 'primary', className = '', onClick }: ButtonProps) {
   if (as === 'a' && href) {
     return (
-      <a href={href}>
-        <UIButton 
-          variant={variantToUi[variant]} 
-          className={`px-5 py-2.5 rounded-lg shadow-sm hover:shadow md:transition-all md:duration-200 focus-visible:ring-2 focus-visible:ring-primary ${className}`} 
-          onClick={onClick}
-        >
-          {children}
-        </UIButton>
-      </a>
-    );
+      <UIButton 
+        asChild
+        variant={variantToUi[variant]}
+        className={`px-5 py-2.5 rounded-lg shadow-sm hover:shadow transition-transform duration-200 hover:-translate-y-0.5 hover:opacity-95 focus-visible:ring-2 focus-visible:ring-primary ${className}`}
+      >
+        <a href={href} onClick={onClick}>{children}</a>
+      </UIButton>
+    )
   }
   return (
     <UIButton 
       variant={variantToUi[variant]} 
-      className={`px-5 py-2.5 rounded-lg shadow-sm hover:shadow md:transition-all md:duration-200 focus-visible:ring-2 focus-visible:ring-primary ${className}`} 
+      className={`px-5 py-2.5 rounded-lg shadow-sm hover:shadow transition-transform duration-200 hover:-translate-y-0.5 hover:opacity-95 focus-visible:ring-2 focus-visible:ring-primary ${className}`} 
       onClick={onClick}
     >
       {children}
