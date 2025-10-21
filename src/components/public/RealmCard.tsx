@@ -19,7 +19,7 @@ export default function RealmCard({ title, description, href, imageSrc, accent, 
       ? 'from-primary/25'
       : 'from-foreground/20';
   return (
-    <article className={`group relative rounded-2xl overflow-hidden bg-card/90 backdrop-blur-sm border border-border shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 focus-within:shadow-md hover:ring-2 ${ring} hover:ring-offset-2 hover:ring-offset-background`}> 
+    <article className={`group relative rounded-2xl overflow-hidden bg-card/90 backdrop-blur-sm border border-border shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-1 focus-within:shadow-[0_8px_24px_rgba(0,0,0,0.12)] hover:ring-2 ${ring} hover:ring-offset-2 hover:ring-offset-background`}>
       {/* Aura overlay */}
       <div className={`pointer-events-none absolute -inset-10 -z-10 rounded-[2rem] bg-[radial-gradient(circle_at_30%_20%,var(--tw-gradient-from),transparent_60%)] ${aura} opacity-0 transition-opacity duration-300 group-hover:opacity-25`} aria-hidden="true" />
       <a href={href} className="block focus:outline-none" aria-label={`Learn more about ${title}`}>

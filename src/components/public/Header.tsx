@@ -35,7 +35,7 @@ export default function Header() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm hover:text-primary transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full focus:after:w-full"
+              className="text-sm hover:text-primary transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:after:w-full"
             >
               {l.label}
             </a>

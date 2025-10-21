@@ -41,23 +41,25 @@ export default function Home() {
           />
         {/* Section 2: The Journey */}
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
-          <div ref={aboutReveal.ref} className={`space-y-4 transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-            <p>
-              This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
-            </p>
-            <p>
-              We move with the seasons of the body—strength, softness, and integration—honoring nature’s timing over hustle.
-            </p>
-            <p>
-              In practice, that means honoring your body’s signals, deepening nervous system literacy, and weaving ritual into everyday life—so growth feels integrated, not forced.
-            </p>
+          <div className="bg-foreground/[0.07] -mx-4 px-4 py-8 rounded-2xl">
+            <div ref={aboutReveal.ref} className={`space-y-4 transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
+              <p>
+                This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
+              </p>
+              <p>
+                We move with the seasons of the body—strength, softness, and integration—honoring nature's timing over hustle.
+              </p>
+              <p>
+                In practice, that means honoring your body's signals, deepening nervous system literacy, and weaving ritual into everyday life—so growth feels integrated, not forced.
+              </p>
+            </div>
           </div>
         </Section>
         <SpiralDivider />
         {/* Section 3: The Spiral */}
   <Section id="spiral" background="ivory" title="The Upward Spiral" eyebrow="The Sacred Spiral" spiralAccent>
           <p ref={realmsReveal.ref} className={`max-w-2xl mx-auto text-muted-foreground transition-all duration-700 ${realmsReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-            The Spiral is a cyclical path of remembering. Move with your body’s wisdom, clarify the mind, and root into spirit.
+            The Spiral is a cyclical path of remembering. Move with your body's wisdom, clarify the mind, and root into spirit.
           </p>
           <div className={`mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-700 ${realmsReveal.visible ? 'opacity-100' : 'opacity-0'}`}>
             <RealmCard
@@ -119,10 +121,10 @@ export default function Home() {
             </div>
             <p className="text-lg">I help women remember their rhythm through movement, nourishment, and ritual that honors the seasons of the body.</p>
             <p>
-              Hi, I’m Keeli — Earthbound Alchemist and guide of The Sacred Spiral. My own path began through the physical — training my body, seeking strength — until I realized the deeper wisdom lived in rhythm, not rigidity. The Sacred Spiral was born from that remembrance.
+              Hi, I'm Keeli — Earthbound Alchemist and guide of The Sacred Spiral. My own path began through the physical — training my body, seeking strength — until I realized the deeper wisdom lived in rhythm, not rigidity. The Sacred Spiral was born from that remembrance.
             </p>
             <p>
-              I teach from nature’s intelligence: cyclical, sovereign, and sacred. Each woman’s journey unfolds at her own pace, guided by structure that supports freedom.
+              I teach from nature's intelligence: cyclical, sovereign, and sacred. Each woman's journey unfolds at her own pace, guided by structure that supports freedom.
             </p>
             <p>
               My work bridges science and spirit — movement, nourishment, and ceremony — to help women return to the natural flow of their bodies.
