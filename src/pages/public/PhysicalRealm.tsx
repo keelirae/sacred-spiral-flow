@@ -7,6 +7,7 @@ import Section from '@/components/public/Section';
 import Button from '@/components/public/Button';
 import Leaf from '@/components/icons/Leaf';
 import Moon from '@/components/icons/Moon';
+import realmPhysical from '@/assets/realm-physical.jpg';
 
 export default function PhysicalRealm() {
   return (
@@ -14,7 +15,12 @@ export default function PhysicalRealm() {
       <Seo title="The Physical Realm" description="Fitness, nutrition, and cycle syncing — in rhythm with your body." />
   <Header />
   <main id="main" className="flex-1">
-  <PageHero title="The Physical Realm" subtitle="🌿 Fitness, nutrition, and cycle syncing — in rhythm with your body." />
+  <PageHero 
+    title="The Physical Realm" 
+    subtitle="🌿 Fitness, nutrition, and cycle syncing — in rhythm with your body."
+    imageSrc={realmPhysical}
+    imageAlt="Hands holding earth and a growing sprout"
+  />
         <Section title="Overview">
           <div className="space-y-4 max-w-3xl mx-auto text-center">
             <p>
@@ -31,7 +37,7 @@ export default function PhysicalRealm() {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="rounded-2xl border p-6 bg-card shadow-sm hover:shadow-md transition-all text-center">
               <div className="flex items-center justify-center gap-3 mb-2">
-                <Leaf className="h-5 w-5 text-sage-600" />
+                <Leaf className="h-5 w-5 text-secondary" />
                 <h3 className="font-serif text-xl">Fitness</h3>
               </div>
               <p className="text-muted-foreground">Functional strength, mobility, and cycles of intensity and recovery.</p>
@@ -45,7 +51,7 @@ export default function PhysicalRealm() {
             </div>
             <div className="rounded-2xl border p-6 bg-card shadow-sm hover:shadow-md transition-all text-center">
               <div className="flex items-center justify-center gap-3 mb-2">
-                <Moon className="h-5 w-5 text-clay-600" />
+                <Moon className="h-5 w-5 text-secondary" />
                 <h3 className="font-serif text-xl">Cycle Syncing</h3>
               </div>
               <p className="text-muted-foreground">Training, fuel, and self-care tuned to menstrual, follicular, ovulatory, and luteal phases.</p>

@@ -30,7 +30,10 @@ export default function Section({ id, title, eyebrow, children, background = 'de
                 </svg>
               </div>
             )}
-            {eyebrow && <p className="text-sm tracking-wide text-accent uppercase">{eyebrow}</p>}
+            {eyebrow && <p className="text-sm tracking-wide text-secondary uppercase flex items-center justify-center gap-2">
+              <span className="text-secondary">✨</span>
+              {eyebrow}
+            </p>}
             {title && <h2 className="mt-2 text-3xl md:text-4xl font-serif tracking-tight text-foreground">{title}</h2>}
           </header>
         )}

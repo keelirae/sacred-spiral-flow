@@ -11,6 +11,12 @@ import Moon from '@/components/icons/Moon';
 import Spiral from '@/components/icons/Spiral';
 import Button from '@/components/public/Button';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import heroHome from '@/assets/hero-home.jpg';
+import journeyWheel from '@/assets/journey-wheel.jpg';
+import realmPhysical from '@/assets/realm-physical.jpg';
+import realmMental from '@/assets/realm-mental.jpg';
+import realmSpiritual from '@/assets/realm-spiritual.jpg';
+import aboutKeeli from '@/assets/about-keeli.jpg';
 
 export default function Home() {
   const realmsReveal = useScrollReveal<HTMLDivElement>();
@@ -30,6 +36,8 @@ export default function Home() {
             subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms."
             ctaHref="#spiral"
             ctaLabel="Enter the Spiral"
+            imageSrc={heroHome}
+            imageAlt="Sacred spiral of transformation"
           />
         {/* Section 2: The Journey */}
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
@@ -58,6 +66,7 @@ export default function Home() {
               href="/physical-realm"
               accent="sage"
               icon={<Leaf className="h-4 w-4" />}
+              imageSrc={realmPhysical}
             />
             <RealmCard
               title="Mental Realm"
@@ -65,6 +74,7 @@ export default function Home() {
               href="/mental-realm"
               accent="clay"
               icon={<Moon className="h-4 w-4" />}
+              imageSrc={realmMental}
             />
             <RealmCard
               title="Spiritual Realm"
@@ -72,6 +82,7 @@ export default function Home() {
               href="/spiritual-realm"
               accent="ink"
               icon={<Spiral className="h-4 w-4" />}
+              imageSrc={realmSpiritual}
             />
           </div>
         </Section>
@@ -87,13 +98,25 @@ export default function Home() {
                 <Button as="a" href="/journey">Learn More</Button>
               </div>
             </div>
-            <div className="aspect-[4/3] rounded-2xl bg-muted/40" aria-hidden="true" />
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden border shadow-sm">
+              <img 
+                src={journeyWheel} 
+                alt="The 12-month journey wheel"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </Section>
         {/* Section 5: About Me (home page only) */}
         <Section title="About Me">
           <div ref={contactReveal.ref} className={`mx-auto max-w-3xl space-y-4 transition-all duration-700 ${contactReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-            <div className="mx-auto h-20 w-20 rounded-full bg-muted/60 border" aria-hidden="true" />
+            <div className="mx-auto h-32 w-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-lg">
+              <img 
+                src={aboutKeeli} 
+                alt="Keeli, Earthbound Alchemist"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <p className="text-lg">I help women remember their rhythm through movement, nourishment, and ritual that honors the seasons of the body.</p>
             <p>
               Hi, I’m Keeli — Earthbound Alchemist and guide of The Sacred Spiral. My own path began through the physical — training my body, seeking strength — until I realized the deeper wisdom lived in rhythm, not rigidity. The Sacred Spiral was born from that remembrance.

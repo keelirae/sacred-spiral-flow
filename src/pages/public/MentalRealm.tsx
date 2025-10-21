@@ -5,6 +5,7 @@ import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
 import Button from '@/components/public/Button';
+import realmMental from '@/assets/realm-mental.jpg';
 
 export default function MentalRealm() {
   return (
@@ -12,7 +13,12 @@ export default function MentalRealm() {
       <Seo title="The Mental Realm" description="Shadow work, nervous system literacy, and mindset re-patterning." />
   <Header />
   <main id="main" className="flex-1">
-  <PageHero title="The Mental Realm" subtitle="🧠 Shadow work, nervous system literacy, and mindset re-patterning." />
+  <PageHero 
+    title="The Mental Realm" 
+    subtitle="🧠 Shadow work, nervous system literacy, and mindset re-patterning."
+    imageSrc={realmMental}
+    imageAlt="Calm pool of water with reflective light"
+  />
         <Section>
           <div className="rounded-2xl border p-8 bg-card/90 backdrop-blur-sm shadow-sm">
             <h3 className="font-serif text-2xl mb-2">🧠 Full Program Launching Soon</h3>
