@@ -26,7 +26,8 @@ export default function Home() {
       <Seo title="The Sacred Spiral — Feminine, Earth-Rooted Transformation" description="A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony." />
   <Header />
   <main id="main" className="flex-1">
-          <PageHero title="The Sacred Spiral" subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms." ctaHref="#spiral" ctaLabel="Enter the Spiral" imageSrc={heroHome} imageAlt="Sacred spiral of transformation" />
+        <PageHero title="The Sacred Spiral" subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms." ctaHref="#spiral" ctaLabel="Enter the Spiral" imageSrc={heroHome} imageAlt="Sacred spiral of transformation" />
+        <SpiralDivider />
         {/* Section 2: The Journey */}
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
           <div className="bg-foreground/[0.07] -mx-4 px-4 py-8 rounded-2xl">
@@ -74,6 +75,7 @@ You arrive at the center—where everything quiets and deepens. This is the real
             </div>
           </div>
         </Section>
+        <SpiralDivider />
         {/* Section 5: About Me (home page only) */}
         <Section title="About Me">
           <div ref={contactReveal.ref} className={`mx-auto max-w-3xl space-y-4 transition-all duration-700 ${contactReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>

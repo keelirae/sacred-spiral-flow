@@ -4,6 +4,7 @@ import Seo from '@/components/Seo';
 import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
+import SpiralDivider from '@/components/public/SpiralDivider';
 import Button from '@/components/public/Button';
 import Leaf from '@/components/icons/Leaf';
 import Moon from '@/components/icons/Moon';
@@ -33,6 +34,7 @@ export default function PhysicalRealm() {
             </p>
           </div>
         </Section>
+        <SpiralDivider />
         <Section title="The Three Pillars">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="rounded-2xl border p-6 bg-card shadow-sm hover:shadow-md transition-all text-center">
