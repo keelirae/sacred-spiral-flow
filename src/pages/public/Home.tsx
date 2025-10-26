@@ -17,41 +17,47 @@ import realmPhysical from '@/assets/realm-physical.jpg';
 import realmMental from '@/assets/realm-mental.jpg';
 import realmSpiritual from '@/assets/realm-spiritual.jpg';
 import aboutKeeli from '@/assets/about-keeli.jpg';
-
 export default function Home() {
   const realmsReveal = useScrollReveal<HTMLDivElement>();
   const journeyReveal = useScrollReveal<HTMLDivElement>();
   const aboutReveal = useScrollReveal<HTMLDivElement>();
   const contactReveal = useScrollReveal<HTMLDivElement>();
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Seo
-        title="The Sacred Spiral — Feminine, Earth-Rooted Transformation"
-        description="A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony."
-      />
+  return <div className="min-h-screen flex flex-col">
+      <Seo title="The Sacred Spiral — Feminine, Earth-Rooted Transformation" description="A year-long cyclical journey through the Physical, Mental, and Spiritual realms: movement, nourishment, nervous system, ceremony." />
   <Header />
   <main id="main" className="flex-1">
-          <PageHero
-            title="The Sacred Spiral"
-            subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms."
-            ctaHref="#spiral"
-            ctaLabel="Enter the Spiral"
-            imageSrc={heroHome}
-            imageAlt="Sacred spiral of transformation"
-          />
+          <PageHero title="The Sacred Spiral" subtitle="A journey of embodiment through the Physical, Mental, and Spiritual realms." ctaHref="#spiral" ctaLabel="Enter the Spiral" imageSrc={heroHome} imageAlt="Sacred spiral of transformation" />
         {/* Section 2: The Journey */}
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
           <div className="bg-foreground/[0.07] -mx-4 px-4 py-8 rounded-2xl">
             <div ref={aboutReveal.ref} className={`space-y-4 transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-              <p>
-                This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
-              </p>
-              <p>
-                We move with the seasons of the body—strength, softness, and integration—honoring nature's timing over hustle.
-              </p>
-              <p>
-                In practice, that means honoring your body's signals, deepening nervous system literacy, and weaving ritual into everyday life—so growth feels integrated, not forced.
-              </p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">A women's healing doesn't happen in a straight line.
+It spirals layer by layer, deeper & clearer each time.
+This is the spiral.
+            </p>
+              <p className="text-lg">This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
+
+ We begin at the base of the Spiral: the body.
+Here, you return to your rhythms—learning to align movement with breath, nourishment with cycle, strength with softness. This phase isn’t about pushing harder—it’s about remembering how to listen. You’ll root into the intelligence of your body, rebuild your energy, and regulate your hormones with aligned nutrition and movement practices that work with your cycle, not against it.
+
+ As your body finds its ground, the mind begins to open.
+
+Now we ascend into the mental realm, where clarity begins.
+This is where we examine our inner landscape: the stories we carry, the voices we’ve inherited, the beliefs that have kept us small. Through shadow work, nervous system awareness, and the rewiring of old patterns, you’ll begin to reclaim your mental sovereignty. No more shame loops. No more bypassing. Just gentle, structured remembrance of who you truly are.
+
+ And from this integration, the spirit awakens.
+
+You arrive at the center of the spiral, where everything quiets and deepens.
+This is the realm of ceremony, breathwork, earth-based ritual and feminine embodiment. You’ll root into your spiritual self, not as something outside you, but something you’ve always carried. You’ll learn to move with the moon, create sacred space, work with herbs and elements and restore your relationship with the unseen. You’ll remember how to commune with your higher self, your inner child and the wild wisdom within.
+
+ This journey is not linear. Each phase builds upon the last, and nothing is ever left behind.
+
+As you spiral upward, you are always returning to yourself stronger, clearer and more attuned. 
+ 
+            </p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">This is The Sacred Spiral.
+Not a program.
+A path back home.</p>
             </div>
           </div>
         </Section>
@@ -62,30 +68,9 @@ export default function Home() {
             The Spiral is a cyclical path of remembering. Move with your body's wisdom, clarify the mind, and root into spirit.
           </p>
           <div className={`mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-opacity duration-700 ${realmsReveal.visible ? 'opacity-100' : 'opacity-0'}`}>
-            <RealmCard
-              title="Physical Realm"
-              description="Body intelligence through functional movement, whole-food nutrition, and cycle syncing."
-              href="/physical-realm"
-              accent="sage"
-              icon={<Leaf className="h-4 w-4" />}
-              imageSrc={realmPhysical}
-            />
-            <RealmCard
-              title="Mental Realm"
-              description="Shadow work, nervous system support, and mindset re-patterning."
-              href="/mental-realm"
-              accent="clay"
-              icon={<Moon className="h-4 w-4" />}
-              imageSrc={realmMental}
-            />
-            <RealmCard
-              title="Spiritual Realm"
-              description="Ceremony, ritual, meditation, and feminine embodiment."
-              href="/spiritual-realm"
-              accent="ink"
-              icon={<Spiral className="h-4 w-4" />}
-              imageSrc={realmSpiritual}
-            />
+            <RealmCard title="Physical Realm" description="Body intelligence through functional movement, whole-food nutrition, and cycle syncing." href="/physical-realm" accent="sage" icon={<Leaf className="h-4 w-4" />} imageSrc={realmPhysical} />
+            <RealmCard title="Mental Realm" description="Shadow work, nervous system support, and mindset re-patterning." href="/mental-realm" accent="clay" icon={<Moon className="h-4 w-4" />} imageSrc={realmMental} />
+            <RealmCard title="Spiritual Realm" description="Ceremony, ritual, meditation, and feminine embodiment." href="/spiritual-realm" accent="ink" icon={<Spiral className="h-4 w-4" />} imageSrc={realmSpiritual} />
           </div>
         </Section>
         <SpiralDivider />
@@ -101,11 +86,7 @@ export default function Home() {
               </div>
             </div>
             <div className="aspect-[4/3] rounded-2xl overflow-hidden border shadow-sm">
-              <img 
-                src={journeyWheel} 
-                alt="The 12-month journey wheel"
-                className="w-full h-full object-cover"
-              />
+              <img src={journeyWheel} alt="The 12-month journey wheel" className="w-full h-full object-cover" />
             </div>
           </div>
         </Section>
@@ -113,11 +94,7 @@ export default function Home() {
         <Section title="About Me">
           <div ref={contactReveal.ref} className={`mx-auto max-w-3xl space-y-4 transition-all duration-700 ${contactReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
             <div className="mx-auto h-32 w-32 rounded-full overflow-hidden border-4 border-primary/20 shadow-lg">
-              <img 
-                src={aboutKeeli} 
-                alt="Keeli, Earthbound Alchemist"
-                className="w-full h-full object-cover"
-              />
+              <img src={aboutKeeli} alt="Keeli, Earthbound Alchemist" className="w-full h-full object-cover" />
             </div>
             <p className="text-lg">I help women remember their rhythm through movement, nourishment, and ritual that honors the seasons of the body.</p>
             <p>
@@ -136,6 +113,5 @@ export default function Home() {
         </Section>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 }
