@@ -5,6 +5,7 @@ import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
 import Button from '@/components/public/Button';
+import SpiralDivider from '@/components/public/SpiralDivider';
 import realmMental from '@/assets/realm-mental.jpg';
 
 export default function MentalRealm() {
@@ -19,6 +20,7 @@ export default function MentalRealm() {
     imageSrc={realmMental}
     imageAlt="Calm pool of water with reflective light"
   />
+        <SpiralDivider />
         <Section>
           <div className="rounded-2xl border p-8 bg-card/90 backdrop-blur-sm shadow-sm">
             <h3 className="font-serif text-2xl mb-2">🧠 Full Program Launching Soon</h3>

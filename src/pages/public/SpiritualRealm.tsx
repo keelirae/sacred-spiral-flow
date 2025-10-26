@@ -5,6 +5,7 @@ import Footer from '@/components/public/Footer';
 import PageHero from '@/components/public/PageHero';
 import Section from '@/components/public/Section';
 import Button from '@/components/public/Button';
+import SpiralDivider from '@/components/public/SpiralDivider';
 import realmSpiritual from '@/assets/realm-spiritual.jpg';
 
 export default function SpiritualRealm() {
@@ -19,6 +20,7 @@ export default function SpiritualRealm() {
     imageSrc={realmSpiritual}
     imageAlt="Woman in white dress surrounded by candles in ceremony"
   />
+        <SpiralDivider />
         <Section>
           <div className="rounded-2xl border p-8 bg-card/90 backdrop-blur-sm shadow-sm">
             <h3 className="font-serif text-2xl mb-2">🌀 Full Program Launching Soon</h3>

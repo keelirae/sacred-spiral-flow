@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Menu, ChevronDown } from 'lucide-react';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -31,15 +37,38 @@ export default function Header() {
           <span className="font-semibold tracking-wide">The Sacred Spiral</span>
         </a>
         <nav aria-label="Primary" className="hidden md:flex items-center gap-6">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm hover:text-primary transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:after:w-full"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            if (l.label === 'The Spiral') {
+              return (
+                <DropdownMenu key={l.href}>
+                  <DropdownMenuTrigger className="text-sm hover:text-primary transition-colors flex items-center gap-1 focus:outline-none focus:text-primary">
+                    {l.label}
+                    <ChevronDown className="h-3 w-3" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-background border-border">
+                    <DropdownMenuItem asChild>
+                      <a href="/physical-realm" className="cursor-pointer">Physical Realm</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href="/mental-realm" className="cursor-pointer">Mental Realm</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href="/spiritual-realm" className="cursor-pointer">Spiritual Realm</a>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              );
+            }
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm hover:text-primary transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:after:w-full"
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>

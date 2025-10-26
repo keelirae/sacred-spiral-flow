@@ -6,18 +6,28 @@ interface SpiralDividerProps {
 
 export default function SpiralDivider({ className = '' }: SpiralDividerProps) {
   return (
-    <div className={`relative my-10 md:my-14 lg:my-20 ${className}`} aria-hidden="true">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-foreground/15 to-transparent" />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <svg width="64" height="64" viewBox="0 0 100 100" fill="none" className="text-[#C87550]" aria-hidden>
-          <path 
-            d="M50 50c10 0 18-8 18-18S60 14 50 14 32 22 32 32c0 12 10 22 22 22 14 0 26-12 26-26S68 2 54 2 30 12 30 26c0 16 14 30 30 30 18 0 34-16 34-34S78-12 60-12" 
-            stroke="currentColor" 
-            strokeWidth="3" 
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
+    <div className={`flex items-center justify-center my-10 md:my-14 lg:my-20 ${className}`} aria-hidden="true">
+      <svg width="80" height="80" viewBox="0 0 200 200" fill="none" className="text-primary" aria-hidden>
+        <path 
+          d="M 100 100 
+             C 100 80, 110 70, 120 70
+             C 130 70, 140 80, 140 90
+             C 140 105, 130 115, 115 115
+             C 95 115, 80 100, 80 85
+             C 80 65, 95 50, 115 50
+             C 140 50, 160 70, 160 95
+             C 160 125, 135 150, 105 150
+             C 70 150, 45 120, 45 85
+             C 45 45, 75 15, 115 15
+             C 160 15, 190 50, 190 95
+             C 190 145, 155 180, 105 180
+             C 50 180, 10 140, 10 85" 
+          stroke="currentColor" 
+          strokeWidth="3" 
+          strokeLinecap="round"
+          fill="none"
+        />
+      </svg>
     </div>
   )
 }
