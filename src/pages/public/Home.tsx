@@ -40,6 +40,9 @@ export default function Home() {
 𝑵𝒐𝒕 𝒂 𝒑𝒓𝒐𝒈𝒓𝒂𝒎.
 ⁣
 𝑨 𝒑𝒂𝒕𝒉 𝒃𝒂𝒄𝒌 𝒉𝒐𝒎𝒆.</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">Add your text here</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">Add your text here</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">Add your text here</p>
             </div>
           </div>
         </Section>
