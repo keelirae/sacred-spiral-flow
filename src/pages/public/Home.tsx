@@ -35,11 +35,11 @@ export default function Home() {
 𝑰𝒕 𝒔𝒑𝒊𝒓𝒂𝒍𝒔 𝒍𝒂𝒚𝒆𝒓 𝒃𝒚 𝒍𝒂𝒚𝒆𝒓, 𝒅𝒆𝒆𝒑𝒆𝒓 & 𝒄𝒍𝒆𝒂𝒓𝒆𝒓 𝒆𝒂𝒄𝒉 𝒕𝒊𝒎𝒆.
 𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒑𝒊𝒓𝒂𝒍.</p>
               <p className="text-lg"></p>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑇ℎ𝑖𝑠 𝑖𝑠 𝑇ℎ𝑒 𝑆𝑎𝑐𝑟𝑒𝑑 𝑆𝑝𝑖𝑟𝑎𝑙.
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒂𝒄𝒓𝒆𝒅 𝒔𝒑𝒊𝒓𝒂𝒍.
 ⁣
-𝑁𝑜𝑡 𝑎 𝑝𝑟𝑜𝑔𝑟𝑎𝑚.
+𝑵𝒐𝒕 𝒂 𝒑𝒓𝒐𝒈𝒓𝒂𝒎.
 ⁣
-𝐴 𝑝𝑎𝑡ℎ 𝑏𝑎𝑐𝑘 ℎ𝑜𝑚𝑒.</p>
+𝑨 𝒑𝒂𝒕𝒉 𝒃𝒂𝒄𝒌 𝒉𝒐𝒎𝒆.</p>
             </div>
           </div>
         </Section>
