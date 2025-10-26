@@ -31,33 +31,15 @@ export default function Home() {
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
           <div className="bg-foreground/[0.07] -mx-4 px-4 py-8 rounded-2xl">
             <div ref={aboutReveal.ref} className={`space-y-4 transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">A women's healing doesn't happen in a straight line.
-It spirals layer by layer, deeper & clearer each time.
-This is the spiral.
-            </p>
-              <p className="text-lg">This work is rooted in cyclical living, body sovereignty, and earth-aligned transformation. Through gentle structure and spaciousness, the Spiral offers a grounded path of remembrance and return.
-
- We begin at the base of the Spiral: the body.
-Here, you return to your rhythms—learning to align movement with breath, nourishment with cycle, strength with softness. This phase isn’t about pushing harder—it’s about remembering how to listen. You’ll root into the intelligence of your body, rebuild your energy, and regulate your hormones with aligned nutrition and movement practices that work with your cycle, not against it.
-
- As your body finds its ground, the mind begins to open.
-
-Now we ascend into the mental realm, where clarity begins.
-This is where we examine our inner landscape: the stories we carry, the voices we’ve inherited, the beliefs that have kept us small. Through shadow work, nervous system awareness, and the rewiring of old patterns, you’ll begin to reclaim your mental sovereignty. No more shame loops. No more bypassing. Just gentle, structured remembrance of who you truly are.
-
- And from this integration, the spirit awakens.
-
-You arrive at the center of the spiral, where everything quiets and deepens.
-This is the realm of ceremony, breathwork, earth-based ritual and feminine embodiment. You’ll root into your spiritual self, not as something outside you, but something you’ve always carried. You’ll learn to move with the moon, create sacred space, work with herbs and elements and restore your relationship with the unseen. You’ll remember how to commune with your higher self, your inner child and the wild wisdom within.
-
- This journey is not linear. Each phase builds upon the last, and nothing is ever left behind.
-
-As you spiral upward, you are always returning to yourself stronger, clearer and more attuned. 
- 
-            </p>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">This is The Sacred Spiral.
-Not a program.
-A path back home.</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑨 𝒘𝒐𝒎𝒆𝒏'𝒔 𝒉𝒆𝒂𝒍𝒊𝒏𝒈 𝒅𝒐𝒆𝒔𝒏'𝒕 𝒉𝒂𝒑𝒑𝒆𝒏 𝒊𝒏 𝒂 𝒔𝒕𝒓𝒂𝒊𝒈𝒉𝒕 𝒍𝒊𝒏𝒆.
+𝑰𝒕 𝒔𝒑𝒊𝒓𝒂𝒍𝒔 𝒍𝒂𝒚𝒆𝒓 𝒃𝒚 𝒍𝒂𝒚𝒆𝒓, 𝒅𝒆𝒆𝒑𝒆𝒓 & 𝒄𝒍𝒆𝒂𝒓𝒆𝒓 𝒆𝒂𝒄𝒉 𝒕𝒊𝒎𝒆.
+𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒑𝒊𝒓𝒂𝒍.</p>
+              <p className="text-lg"></p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑇ℎ𝑖𝑠 𝑖𝑠 𝑇ℎ𝑒 𝑆𝑎𝑐𝑟𝑒𝑑 𝑆𝑝𝑖𝑟𝑎𝑙.
+⁣
+𝑁𝑜𝑡 𝑎 𝑝𝑟𝑜𝑔𝑟𝑎𝑚.
+⁣
+𝐴 𝑝𝑎𝑡ℎ 𝑏𝑎𝑐𝑘 ℎ𝑜𝑚𝑒.</p>
             </div>
           </div>
         </Section>
