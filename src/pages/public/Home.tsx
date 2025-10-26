@@ -37,11 +37,10 @@ export default function Home() {
               <p className="text-lg"></p>
               <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">We begin at the base: the body.
 Here, you return to your rhythms—learning to align movement with breath, nourishment with cycle, strength with softness. This phase isn’t about pushing harder—it’s about remembering how to listen. You’ll root into the intelligence of your body, rebuild your energy, and regulate your hormones with aligned nutrition and movement practices that work with your cycle, not against it.</p>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">
-
-
-            </p>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">Add your text he</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">As your body finds its ground, the mind begins to open.
+Now we ascend into the mental realm—where clarity begins. This is where we examine our inner landscape: the stories we carry, the voices we’ve inherited, the beliefs that have kept us small. Through shadow work, nervous system awareness, and the rewiring of old patterns, you’ll begin to reclaim your mental sovereignty. No more shame loops. No more bypassing. Just gentle, structured remembrance of who you truly are.</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">Add your text heAnd from this integration, the spirit awakens.
+You arrive at the center—where everything quiets and deepens. This is the realm of ceremony, breathwork, earth-based ritual, and feminine embodiment. You’ll root into your spiritual self—not as something outside you, but something you’ve always carried. You’ll learn to move with the moon, create sacred space, work with herbs and elements, and restore your relationship with the unseen. You’ll remember how to commune with your higher self, your inner child, and the wild wisdom within.</p>
               <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒂𝒄𝒓𝒆𝒅 𝒔𝒑𝒊𝒓𝒂𝒍. ⁣ 𝑵𝒐𝒕 𝒂 𝒑𝒓𝒐𝒈𝒓𝒂𝒎. ⁣ 𝑨 𝒑𝒂𝒕𝒉 𝒃𝒂𝒄𝒌 𝒉𝒐𝒎𝒆.</p>
             </div>
           </div>
