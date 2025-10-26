@@ -22,9 +22,9 @@ export default function PageHero({ title, subtitle, imageAlt = 'decorative', cta
           <img 
             src={imageSrc} 
             alt={imageAlt}
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
         </div>
       )}
       <div className="relative z-10 mx-auto max-w-[960px] px-4 py-16 md:py-20 text-center">
