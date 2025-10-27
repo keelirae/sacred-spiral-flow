@@ -34,7 +34,7 @@ export default function Header() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 bg-background border px-3 py-2 rounded-md">Skip to main content</a>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2">
-          <Spiral className="h-6 w-6 text-primary" aria-hidden="true" />
+          <Spiral className="h-6 w-6 text-[#C87550]" aria-hidden="true" />
           <span className="font-semibold tracking-wide">The Sacred Spiral</span>
         </a>
         <nav aria-label="Primary" className="hidden md:flex items-center gap-6">
