@@ -22,8 +22,8 @@ export default function Section({
       {/* soft paper texture using subtle noise */}
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06] [background-image:radial-gradient(2px_2px_at_20px_20px,hsl(var(--foreground)/.12)_1px,transparent_1px)] [background-size:32px_32px]" aria-hidden="true" />
       <Auras />
-      <div className="relative mx-auto max-w-3xl md:max-w-4xl lg:max-w-[960px] px-4 py-10 md:py-14 lg:py-20 text-center">
-        {(eyebrow || title) && <header className="relative mb-8">
+      <div className="relative mx-auto max-w-3xl md:max-w-4xl lg:max-w-[960px] px-4 py-8 md:py-10 lg:py-14 text-center">
+        {(eyebrow || title) && <header className="relative mb-6">
             {spiralAccent && <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center opacity-10">
                 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" aria-hidden>
                   <path d="M60 12c26.5 0 48 21.5 48 48s-21.5 48-48 48S12 86.5 12 60" stroke="currentColor" strokeOpacity=".45" strokeWidth="1.2" strokeLinecap="round" />

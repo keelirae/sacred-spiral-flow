@@ -6,11 +6,11 @@ interface SpiralDividerProps {
 
 export default function SpiralDivider({ className = '' }: SpiralDividerProps) {
   return (
-    <div className={`relative flex items-center justify-center my-10 md:my-14 lg:my-20 ${className}`} aria-hidden="true">
+    <div className={`relative flex items-center justify-center my-8 md:my-10 ${className}`} aria-hidden="true">
       <div className="absolute inset-0 flex items-center">
-        <div className="w-full border-t border-foreground/10" />
+        <div className="w-full border-t opacity-15" style={{ borderColor: '#1E4620' }} />
       </div>
-      <div className="relative bg-background px-4">
+      <div className="relative bg-transparent px-4">
         <svg width="80" height="80" viewBox="0 0 200 200" fill="none" className="text-primary" aria-hidden>
           <path 
             d="M 100 100 

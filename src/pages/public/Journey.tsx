@@ -6,7 +6,6 @@ import PageHero from '@/components/public/PageHero'
 import Section from '@/components/public/Section'
 import Button from '@/components/public/Button'
 import JourneyTimeline from '@/components/public/JourneyTimeline'
-import SpiralDivider from '@/components/public/SpiralDivider'
 import heroJourney from '@/assets/hero-journey.jpg';
 
 export default function Journey() {
@@ -24,7 +23,6 @@ export default function Journey() {
         <Section title="The 12-Month Path" spiralAccent>
           <JourneyTimeline />
         </Section>
-        <SpiralDivider />
         <Section title="What You Receive">
           <div className="flex flex-wrap justify-center gap-2">
             {['Guidance & structure','Seasonal rhythm','Community touchpoints'].map((v) => (
