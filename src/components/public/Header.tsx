@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Menu, ChevronDown } from 'lucide-react';
 import Spiral from '@/components/icons/Spiral';
 
@@ -22,6 +23,7 @@ const links = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [elevated, setElevated] = useState(false);
+  const [mobileRealmsOpen, setMobileRealmsOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setElevated(window.scrollY > 8);
@@ -80,16 +82,55 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="left" className="w-80" aria-label="Mobile menu">
               <nav className="mt-8 grid gap-4">
-                {links.map((l) => (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    onClick={() => setOpen(false)}
-                  >
-                    {l.label}
-                  </a>
-                ))}
+                {links.map((l) => {
+                  if (l.label === 'Explore the Realms') {
+                    return (
+                      <Collapsible 
+                        key={l.href}
+                        open={mobileRealmsOpen}
+                        onOpenChange={setMobileRealmsOpen}
+                      >
+                        <CollapsibleTrigger className="w-full text-left text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary flex items-center justify-between">
+                          {l.label}
+                          <ChevronDown className={`h-4 w-4 transition-transform ${mobileRealmsOpen ? 'rotate-180' : ''}`} />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="ml-4 mt-2 grid gap-2">
+                          <a
+                            href="/physical-realm"
+                            className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            onClick={() => setOpen(false)}
+                          >
+                            Physical Realm
+                          </a>
+                          <a
+                            href="/mental-realm"
+                            className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            onClick={() => setOpen(false)}
+                          >
+                            Mental Realm
+                          </a>
+                          <a
+                            href="/spiritual-realm"
+                            className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            onClick={() => setOpen(false)}
+                          >
+                            Spiritual Realm
+                          </a>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    );
+                  }
+                  return (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      className="text-base px-2 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      onClick={() => setOpen(false)}
+                    >
+                      {l.label}
+                    </a>
+                  );
+                })}
               </nav>
             </SheetContent>
           </Sheet>
