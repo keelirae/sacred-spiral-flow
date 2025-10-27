@@ -32,7 +32,7 @@ export default function Home() {
   <Section title="The Journey" eyebrow="The Sacred Spiral" spiralAccent>
           <div className="bg-foreground/[0.07] -mx-4 px-4 py-8 rounded-2xl">
             <div ref={aboutReveal.ref} className={`space-y-4 transition-all duration-700 ${aboutReveal.visible ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑨 𝒘𝒐𝒎𝒆𝒏'𝒔 𝒉𝒆𝒂𝒍𝒊𝒏𝒈 𝒅𝒐𝒆𝒔𝒏'𝒕 𝒉𝒂𝒑𝒑𝒆𝒏 𝒊𝒏 𝒂 𝒔𝒕𝒓𝒂𝒊𝒈𝒉𝒕 𝒍𝒊𝒏𝒆. <br><br> 𝑰𝒕 𝒔𝒑𝒊𝒓𝒂𝒍𝒔 𝒍𝒂𝒚𝒆𝒓 𝒃𝒚 𝒍𝒂𝒚𝒆𝒓, 𝒅𝒆𝒆𝒑𝒆𝒓 & 𝒄𝒍𝒆𝒂𝒓𝒆𝒓 𝒆𝒂𝒄𝒉 𝒕𝒊𝒎𝒆. <br><br> 𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒑𝒊𝒓𝒂𝒍.</p>
+              <p className="text-xl mx-[5px] my-[5px] px-[5px] py-[5px]">𝑨 𝒘𝒐𝒎𝒆𝒏'𝒔 𝒉𝒆𝒂𝒍𝒊𝒏𝒈 𝒅𝒐𝒆𝒔𝒏'𝒕 𝒉𝒂𝒑𝒑𝒆𝒏 𝒊𝒏 𝒂 𝒔𝒕𝒓𝒂𝒊𝒈𝒉𝒕 𝒍𝒊𝒏𝒆. <br /><br /> 𝑰𝒕 𝒔𝒑𝒊𝒓𝒂𝒍𝒔 𝒍𝒂𝒚𝒆𝒓 𝒃𝒚 𝒍𝒂𝒚𝒆𝒓, 𝒅𝒆𝒆𝒑𝒆𝒓 & 𝒄𝒍𝒆𝒂𝒓𝒆𝒓 𝒆𝒂𝒄𝒉 𝒕𝒊𝒎𝒆. <br /><br /> 𝑻𝒉𝒊𝒔 𝒊𝒔 𝒕𝒉𝒆 𝒔𝒑𝒊𝒓𝒂𝒍.</p>
               <p className="text-lg"></p>
               <p className="mx-[5px] my-[5px] px-[5px] py-[5px] text-lg">We begin at the base: the body.
 Here, you return to your rhythms—learning to align movement with breath, nourishment with cycle, strength with softness. This phase isn’t about pushing harder—it’s about remembering how to listen. You’ll root into the intelligence of your body, rebuild your energy, and regulate your hormones with aligned nutrition and movement practices that work with your cycle, not against it.</p>
