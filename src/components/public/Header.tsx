@@ -8,11 +8,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Menu, ChevronDown } from 'lucide-react';
+import Spiral from '@/components/icons/Spiral';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/#spiral', label: 'The Spiral' },
-  { href: '/journey', label: 'Journey' },
+  { href: '/#spiral', label: 'Explore the Realms' },
+  { href: '/journey', label: 'Begin the Initiation' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
   { href: '/initiates', label: 'For Initiates' },
@@ -33,12 +34,12 @@ export default function Header() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 bg-background border px-3 py-2 rounded-md">Skip to main content</a>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2">
-          <span className="inline-block h-6 w-6 rounded-full bg-[radial-gradient(circle_at_30%_30%,hsl(var(--primary)),hsl(var(--accent)))] shadow-sm" aria-hidden="true" />
+          <Spiral className="h-6 w-6 text-primary" aria-hidden="true" />
           <span className="font-semibold tracking-wide">The Sacred Spiral</span>
         </a>
         <nav aria-label="Primary" className="hidden md:flex items-center gap-6">
           {links.map((l) => {
-            if (l.label === 'The Spiral') {
+            if (l.label === 'Explore the Realms') {
               return (
                 <DropdownMenu key={l.href}>
                   <DropdownMenuTrigger className="text-sm hover:text-primary transition-colors flex items-center gap-1 focus:outline-none focus:text-primary">

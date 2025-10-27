@@ -5,7 +5,7 @@ import heroHome from '@/assets/hero-home.jpg';
 
 interface Props {
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   imageAlt?: string;
   ctaHref?: string;
   ctaLabel?: string;

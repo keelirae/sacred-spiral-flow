@@ -15,8 +15,14 @@ export default function Journey() {
       <Header />
       <main id="main" className="flex-1">
         <PageHero 
-          title="Journey Through the Sacred Spiral" 
-          subtitle="A 12-month cyclical path of growth, integration, and remembrance."
+          title="The Sacred Spiral Initiation" 
+          subtitle={
+            <>
+              A 12-month rite of return through the realms of body, mind, and spirit.
+              <br className="my-2" />
+              Walk the spiral of remembrance. Rise in rhythm, and root into your truth.
+            </>
+          }
           imageSrc={heroJourney}
           imageAlt="A winding path through an ancient forest"
         />
