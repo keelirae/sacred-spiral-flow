@@ -16,7 +16,7 @@ export default function PageHero({ title, subtitle, imageAlt = 'decorative', cta
   return (
     <section className="relative w-full overflow-hidden">
       <Auras variant="hero" />
-      {/* Hero background image */}
+      {/* Hero background image with subtle organic texture */}
       {imageSrc && (
         <div className="absolute inset-0 z-0">
           <img 
@@ -25,6 +25,14 @@ export default function PageHero({ title, subtitle, imageAlt = 'decorative', cta
             className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+          {/* Subtle organic texture overlay */}
+          <div 
+            className="absolute inset-0 opacity-[0.08]" 
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' seed='2' /%3E%3CfeColorMatrix values='0 0 0 0 0.8, 0 0 0 0 0.6, 0 0 0 0 0.4, 0 0 0 1 0' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' /%3E%3C/svg%3E")`,
+              backgroundSize: '180px 180px'
+            }}
+          />
         </div>
       )}
       <div className="relative z-10 mx-auto max-w-[960px] px-4 py-16 md:py-20 text-center">

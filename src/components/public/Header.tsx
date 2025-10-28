@@ -32,7 +32,15 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
-    <header className={`sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b ${elevated ? 'shadow-sm' : ''}`}>
+    <header 
+      className={`sticky top-0 z-50 border-b transition-shadow duration-300`}
+      style={{
+        backgroundColor: 'hsl(42 50% 97% / 0.95)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        boxShadow: elevated ? '0 4px 12px -2px hsl(30 18% 80% / 0.25)' : 'none'
+      }}
+    >
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 bg-background border px-3 py-2 rounded-md">Skip to main content</a>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2">

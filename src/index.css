@@ -122,7 +122,9 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background font-sans;
+    color: hsl(123 42% 16%); /* Darker text for better contrast */
+    line-height: 1.7; /* Increased line height for better readability */
     background-image: var(--gradient-nature);
     background-attachment: fixed;
     /* Subtle organic texture overlay */
