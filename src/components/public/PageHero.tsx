@@ -22,8 +22,10 @@ export default function PageHero({ title, subtitle, imageAlt = 'decorative', cta
           <img 
             src={imageSrc} 
             alt={imageAlt}
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover"
           />
+          {/* Subtle dark overlay for text legibility */}
+          <div className="absolute inset-0 bg-[hsl(123_42%_16%_/_0.1)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
           {/* Subtle organic texture overlay */}
           <div 
