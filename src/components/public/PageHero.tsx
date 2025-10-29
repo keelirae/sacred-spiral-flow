@@ -46,7 +46,7 @@ export default function PageHero({ title, subtitle, imageAlt = 'decorative', cta
         {subtitle && <p className="mt-4 text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">{subtitle}</p>}
         {ctaHref && ctaLabel && (
           <div className="mt-6">
-            <Button as="a" href={ctaHref}>{ctaLabel}</Button>
+            <Button as="a" href={ctaHref} pulse>{ctaLabel}</Button>
           </div>
         )}
       </div>

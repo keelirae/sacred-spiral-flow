@@ -124,6 +124,7 @@ All colors MUST be HSL.
   body {
     @apply bg-background font-sans;
     color: hsl(123 42% 16%); /* Darker text for better contrast */
+    font-weight: 400; /* Regular weight for better contrast and legibility */
     line-height: 1.7; /* Increased line height for better readability */
     background-image: var(--gradient-nature);
     background-attachment: fixed;
@@ -147,7 +148,10 @@ All colors MUST be HSL.
     position: relative;
     z-index: 2;
   }
-  h1, h2, h3, h4, h5, h6 { @apply font-serif; }
+  h1, h2, h3, h4, h5, h6 { 
+    @apply font-serif; 
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); /* Subtle drop shadow for depth */
+  }
 }
 
 /* Smooth scrolling for in-page anchors on public site */
@@ -175,4 +179,18 @@ html {
   .animate-slide-up {
     animation: none;
   }
+}
+
+/* Pulsing shadow animation for primary CTAs */
+@keyframes pulse-shadow {
+  0%, 100% {
+    box-shadow: 0 4px 6px -1px hsl(var(--primary) / 0.3), 0 2px 4px -1px hsl(var(--primary) / 0.2);
+  }
+  50% {
+    box-shadow: 0 10px 15px -3px hsl(var(--primary) / 0.4), 0 4px 6px -2px hsl(var(--primary) / 0.3);
+  }
+}
+
+.animate-pulse-shadow {
+  animation: pulse-shadow 3s ease-in-out infinite;
 }

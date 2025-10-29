@@ -10,6 +10,7 @@ interface ButtonProps {
   variant?: Variant;
   className?: string;
   onClick?: React.MouseEventHandler;
+  pulse?: boolean;
 }
 
 const variantToUi: Record<Variant, 'default' | 'secondary' | 'ghost' | 'outline'> = {
@@ -18,13 +19,15 @@ const variantToUi: Record<Variant, 'default' | 'secondary' | 'ghost' | 'outline'
   ghost: 'ghost',
 };
 
-export default function Button({ as = 'button', href, children, variant = 'primary', className = '', onClick }: ButtonProps) {
+export default function Button({ as = 'button', href, children, variant = 'primary', className = '', onClick, pulse = false }: ButtonProps) {
+  const pulseClass = pulse ? 'animate-pulse-shadow' : '';
+  
   if (as === 'a' && href) {
     return (
       <UIButton 
         asChild
         variant={variantToUi[variant]}
-        className={`px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 font-medium hover:bg-foreground hover:text-background ${className}`}
+        className={`px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 font-medium hover:bg-foreground hover:text-background ${pulseClass} ${className}`}
       >
         <a href={href} onClick={onClick}>{children}</a>
       </UIButton>
@@ -33,7 +36,7 @@ export default function Button({ as = 'button', href, children, variant = 'prima
   return (
     <UIButton 
       variant={variantToUi[variant]} 
-      className={`px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 font-medium hover:bg-foreground hover:text-background ${className}`} 
+      className={`px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 font-medium hover:bg-foreground hover:text-background ${pulseClass} ${className}`} 
       onClick={onClick}
     >
       {children}
