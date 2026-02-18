@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: sacred-spiral-flow
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_FIREBASE_API_KEY
+        scope: build
+      - key: VITE_FIREBASE_AUTH_DOMAIN
+        scope: build
+      - key: VITE_FIREBASE_PROJECT_ID
+        scope: build
+      - key: VITE_FIREBASE_STORAGE_BUCKET
+        scope: build
+      - key: VITE_FIREBASE_MESSAGING_SENDER_ID
+        scope: build
+      - key: VITE_FIREBASE_APP_ID
+        scope: build
+      - key: VITE_FIREBASE_MEASUREMENT_ID
+        scope: build
