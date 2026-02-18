@@ -8,8 +8,8 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === "development";
   return {
     server: {
-      host: true, // binds to all interfaces in a cross-platform way
-      port: 8080,
+      host: true,
+      port: 5174,
     },
     plugins: [
       react(),

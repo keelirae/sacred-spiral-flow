@@ -81,6 +81,9 @@ export default function Header() {
             );
           })}
         </nav>
+        <div className="hidden md:flex items-center gap-2">
+          <a href="/auth?tab=signin" className="text-sm">Sign In</a>
+        </div>
         <div className="md:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>

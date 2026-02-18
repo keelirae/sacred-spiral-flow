@@ -217,8 +217,21 @@ const AuthPage = () => {
           </CardContent>
         </Card>
 
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-muted-foreground space-y-3">
           <p>Physical • Mental • Spiritual</p>
+          <div className="pt-2 border-t border-border">
+            <p className="text-xs mb-2">Try the Spiral Root Dashboard</p>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={() => {
+                window.location.href = 'http://127.0.0.1:3000/';
+              }}
+            >
+              Open Dashboard (Preview)
+            </Button>
+          </div>
         </div>
       </div>
     </div>
