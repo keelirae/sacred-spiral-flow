@@ -78,9 +78,9 @@ jobs:
       run: npm run build
     
     - name: Deploy to Netlify
-      uses: netlify/actions/cli@main
+      uses: South-Paw/action-netlify-deploy@v2
       with:
-        args: deploy --dir=dist --prod
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+        build-dir: ./dist
