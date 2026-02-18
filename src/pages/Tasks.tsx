@@ -66,7 +66,7 @@ export default function Tasks() {
 
   // Filter and sort tasks
   useEffect(() => {
-    let filtered = tasks.filter(task =>
+    const filtered = tasks.filter(task =>
       task.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
